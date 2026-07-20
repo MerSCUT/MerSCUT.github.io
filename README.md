@@ -114,21 +114,13 @@ References:
 - *Real-Time Rendering*
 - Games101 / Games202
 
----
-
-## 📊 GitHub Stats
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=your_username&show_icons=true)
 
 ---
 
 ## 📫 Contact
 
 Email:
-your_email@example.com
-
-LinkedIn:
-your_link
+wjqscut@example.com
 
 ---
 
