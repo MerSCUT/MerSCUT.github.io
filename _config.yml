@@ -1,2 +1,5 @@
 title: Some Technical Notes
 theme: minima
+
+header_pages:
+  - index.md
