@@ -8,7 +8,7 @@ Descriptor（描述符）系统可以理解为：
 
 Shader 通常会定义 UBO : 
 
-```C++
+```cpp
 layout(set = 0, binding = 0) uniform UniformBufferObject {
     mat4 model;
     mat4 view;
@@ -76,7 +76,7 @@ layout(set = 0, binding = 1) uniform sampler2D texSampler;
 
  每一个 `bindings` 的内容, 通过 `DescriptorSetLayoutBinding` 对象定义 :
 
-```C++
+```cpp
 // binding = 0
 VkDescriptorSetLayoutBinding uboBinding{};
 uboBinding.binding = 0;
@@ -99,7 +99,7 @@ samplerBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
 
 简单理解为在 Shader 中定义了这样一个结构体 (而没有实例化 [绑定资源] )
 
-```C++
+```cpp
 struct MaterialResources {
     UniformBuffer* transform;
     Texture* texture;
@@ -108,7 +108,7 @@ struct MaterialResources {
 
 所有的 `DescriptorSetLayoutBinding` 会作为创建信息, 传入 `DescriptorSetLayout` 中 :
 
-```C++
+```cpp
 std::array<VkDescriptorSetLayoutBinding, 2> bindings{
     uboBinding,
     samplerBinding
@@ -141,7 +141,7 @@ DescriptorSetLayout 定义的是一个 `set` 的接口. 而管线允许拥有多
 
 创建 PipelineLayout 的样板代码 如下 :
 
-```C++
+```cpp
 VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 pipelineLayoutInfo.sType =
     VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
@@ -197,7 +197,7 @@ Descriptor Set 通过 `vkAllocateDescriptorSets` 从 Pool 中分配:
 
 Pool 根据 Layout 所定义的结构进行分配. 此后, 可以如下理解 
 
-```C++
+```cpp
 descriptorSet
 ├── binding 0 → 尚未写入
 └── binding 1 → 尚未写入
@@ -205,7 +205,7 @@ descriptorSet
 
 于是接下来就是 **写入空的 DescriptorSet**. 所有写入的信息准备到若干个 `BufferInfo`/`SamplerInfo` 等等, 传入 `VkWriteDescriptorSet`. 最终通过录制命令 `vkUpdateDescriptorSets` 来实现写入.
 
-```C++
+```cpp
 std::array<VkWriteDescriptorSet, 2> writes{};
 
 writes[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -239,7 +239,7 @@ vkUpdateDescriptorSets(
 
 实际中, 假设同时使用  2 帧交替绘制, 创建时期会定义两个相同 Layout 的 `std::vector<DescriptorSet> descriptorSets (2)`,  在绘制第 $k$ 帧时, 通过录制命令 :
 
-```C++
+```cpp
 vkCmdBindDescriptorSets(
     commandBuffer,
     VK_PIPELINE_BIND_POINT_GRAPHICS,
@@ -336,7 +336,7 @@ Present Queue
 
 - 也是通过 submitInfo :
 
-  ```C++
+  ```cpp
   waitStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
   
   submitInfo.waitSemaphoreCount = 1;
@@ -366,7 +366,7 @@ Frame Context 中都是用于 Shader 计算的信息 (Graphics Queue). 项目中
 
 在一帧的渲染流程中, CPU 会与 GPU 异步执行, 完成以下操作
 
-```C++
+```cpp
 vkResetCommandBuffer(...)		// 重置 CommandBuffer
 UpdateUniformBuffer(...)		// 更新 UBO 数据 到 GPU
 RecordCommandBuffer(...)		// 录制新的 Command Buffer

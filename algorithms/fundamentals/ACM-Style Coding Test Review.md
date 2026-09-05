@@ -76,7 +76,7 @@ int main() {
 
 - 安全查找 : 
 
-  ```C++
+  ```cpp
   if (m.find(key) != m.end()) {
       // 找到了，m.find(key)->second 是 value
   }
@@ -84,7 +84,7 @@ int main() {
 
 - 遍历 :
 
-  ```C++
+  ```cpp
   for (auto& [k, v] : m) {
       // C++17 结构化绑定，直接使用 k 和 v
   }
@@ -164,7 +164,7 @@ int main() {
 
 ## Lambda 表达式 + sort
 
-```C++
+```cpp
 sort(v.begin(), v.end(), [](const myStruct a, const myStruct b){
 	// Lambda 函数体, 指明的是判断 a < b 为 true 时的定义.
 	return a.height < b.height;
@@ -177,7 +177,7 @@ sort(v.begin(), v.end(), [](const myStruct a, const myStruct b){
 
 设已经升序排列的容器为 `vector<int> v;`, 此时要查找 `v` 中出现了多少次元素 `int t = 5;`, 一个一行代码能解决的方法是 :
 
-```C++
+```cpp
 int num = upper_bound(v.begin(), v.end(), t) - lower_bound(v.begin(), v.end(), t);
 ```
 

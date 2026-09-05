@@ -208,7 +208,7 @@ C++内存模型中, 地址**从高到低**分别是
 
 有一个特殊情况. 在函数参数定义中 :
 
-```C++
+```cpp
 void func1(int *p);
 void func2(int a[]);
 void func3(int a[10000]);
@@ -224,7 +224,7 @@ void func3(int a[10000]);
 
 那数组名不作为形参, 而是作为**引用参数**呢? 这样确实有效, 可以阻止数组退化为指针.
 
-```C++
+```cpp
 void func4(int (&arr)[10]);
 ```
 
@@ -339,7 +339,7 @@ void func4(int (&arr)[10]);
 
 一个使用示例如下 :
 
-```C++
+```cpp
 Base* ptr = new Derived();
 // 尝试将 ptr 从 Base* -> Derived*
 Derived* d_ptr = dynamic_cast<Derived*>(ptr);
@@ -425,7 +425,7 @@ else{
 
 此时应显式禁用 :
 
-```C++
+```cpp
 myClass(const myClass&) = delete;
 myClass& operator=(const myClass&) = delete; 
 ```

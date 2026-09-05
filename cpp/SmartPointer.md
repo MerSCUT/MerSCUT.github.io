@@ -36,7 +36,7 @@
 
 什么是 Stateless ? 是指类或结构体中**没有任何成员变量和虚函数**.
 
-```C++
+```cpp
 // 这是一个无状态仿函数，常用于自定义删除器
 struct MyDeleter {
     void operator()(int* p) const {
@@ -49,7 +49,7 @@ struct MyDeleter {
 
 倘若我们这样组织 `unique_ptr<int>` :
 
-```C++
+```cpp
 class unique_ptr_for_int{
 	int* ptr;
     MyDeleter deleter;
@@ -68,7 +68,7 @@ class unique_ptr_for_int{
 
 利用这个机制, 我们这样组织智能指针 :
 
-```C++
+```cpp
 class unique_ptr_for_int_with_EBO : public MyDeleter{
 	int* ptr;
 }
@@ -151,7 +151,7 @@ C++ 允许多个  `shared_ptr` 同时指向一个对象. 并在最后一个使�
 
 看以下例子 :
 
-```C++
+```cpp
 struct A {
     std::shared_ptr<B> ptrB;				// A 中持有 指向 B 的共享指针
     ~A() { std::cout << "A destroyed\n"; }
@@ -184,7 +184,7 @@ int main() {
 
 在一个巨大的 `struct Scene` 中 包含许多其他类的子对象 :
 
-```C++
+```cpp
 struct Scene{
  	Camera camera;
     Object object;
@@ -200,7 +200,7 @@ std::shared_ptr<Scene> scene_ptr(&scene);
 
 直接用 `shared_ptr<Camera> camera_ptr` 去管理这个子对象`camera` 显然不能阻止 `scene` 的强引用计数归零. 此时就是**别名构造函数**大显身手的时候. 它的函数签名为 :
 
-```C++
+```cpp
 template<class T>
 shared_ptr(const shared_ptr& r, element_type* ptr);	
 ```
@@ -210,7 +210,7 @@ shared_ptr(const shared_ptr& r, element_type* ptr);
 
 我们以这种方式去创建一个子对象的智能指针 : 
 
-```C++
+```cpp
 std::shared_ptr<Camera> camera_ptr(scene_ptr, &scene_ptr->camera);
 ```
 
@@ -238,7 +238,7 @@ std::shared_ptr<Camera> camera_ptr(scene_ptr, &scene_ptr->camera);
 
 `weak_ptr` 的初始化方法通常是**绑定到一个 `shared_ptr` 上, 与其协作管理 CB**. 这种方法会使得 `obj_shared_ptr` 管理的对象**弱引用计数 + 1.** 
 
-```C++
+```cpp
 shared_ptr<Obj> obj_shared_ptr = make_shared<Obj>();
 weak_ptr<Obj> obj_weak_ptr(obj_shared_ptr);				// 常用
 

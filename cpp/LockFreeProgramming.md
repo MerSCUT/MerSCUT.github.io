@@ -70,7 +70,7 @@ C++ 的原子操作引入了一个非常关键的附加参数：**内存顺序�
 
 最经典的一种结构是 `release-acquire` 语义
 
-```C++
+```cpp
 // 线程 A
 data = 42; 
 flag.store(true, std::memory_order_release); // 建立一道墙，data = 42 必须在这之前完成

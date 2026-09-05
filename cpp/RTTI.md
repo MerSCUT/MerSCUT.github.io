@@ -40,7 +40,7 @@
 
 使用方法为 : `Target* target_ptr = dynamic_cast<Target*>(base_ptr);`
 
-```C++
+```cpp
 Base* ptr = new Derived();
 // 尝试将 ptr 从 Base* -> Derived*
 Derived* d_ptr = dynamic_cast<Derived*>(ptr);

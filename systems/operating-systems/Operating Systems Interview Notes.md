@@ -1024,7 +1024,7 @@ OS提供的原语主要是`SendMessage` 和 `ReceiveMessage`.
 
   - 用一个公共信号量 `S` 实现这个功能 :
 
-    ```C++
+    ```cpp
     semaphore S = 0; 
     P1()
     {
@@ -1045,7 +1045,7 @@ OS提供的原语主要是`SendMessage` 和 `ReceiveMessage`.
 
   - 进程 `P1`, `P2` 要访问同一个临界资源时, 也可以用信号量实现互斥
 
-    ```C++
+    ```cpp
     semaphore S = 1;
     P1()
     {
@@ -1140,7 +1140,7 @@ OS提供的原语主要是`SendMessage` 和 `ReceiveMessage`.
 
 可以如下设计伪代码实现同步与互斥.
 
-```C++
+```cpp
 // 设缓冲区大小保存在 int n. wait/signal操作简记为 P/V 操作
 semaphore empty = 0, full = n, mutex = 1;	// 信号量初始化
 // empty 用来保证槽空不能读
@@ -1196,7 +1196,7 @@ void Comsumer()
 - **互斥 :** **爸爸和妈妈对缓冲区互斥, 他们不能同时访问盘子**. 
   - 用信号量 `mutex` 保证爸爸和妈妈互斥.
 
-```C++
+```cpp
 semaphore Apple = 0, Orange = 0, mutex = 0;
 void Father()
 {
@@ -1247,7 +1247,7 @@ void Son()
   - 这里设计一个 `int count` 表示读者正在访问的数量. 如果是第一个访问文件`Reader`, 那么它需要`down(rw)`来阻止 Writer 进入. 而后面的 读者再进来就不需要, 否则它们就阻塞在`rw`上了. 这可以通过判断`conut == 0` 来实现.
   - **关键** : 对 `count` 的修改操作和`down(pw)`**必须是连续执行的**, 需要保证各个Reader 在`count` 访问上互斥, 否则会出现数据不一致的问题. 因此加一个 `mutex` 信号量保证这一点.
 
-```C++
+```cpp
 int count = 0;
 semaphore mutex = 1, rw = 1;
 // 感觉 PV, wait/signal 的写法都不够直观.
@@ -1995,3 +1995,4 @@ reader()
 
 # 第五章 IO管理
 
+待补充

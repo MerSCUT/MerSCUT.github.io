@@ -281,6 +281,8 @@ GraphicsPipeline 在创建时, 会**绑定在某个 Renderpass 的某个 Subpass
 
 ### Subpass Dependency [TODO]
 
+待补充
+
 
 
 ### Graphics Pipeline
@@ -324,7 +326,7 @@ GraphicsPipeline 在创建时, 会**绑定在某个 Renderpass 的某个 Subpass
 
 Frame Buffer 也是通过描述符显示创建的. 它的 `CreateInfo` 中, 两个重要的成员就是  **RenderPass 和 attachments 数组.** 一个不正式的定义如下 :
 
-```C++
+```cpp
 VkRenderPass renderPass;
 VkImageView ImageView1, ImageView2;
 // Create renderPass and ImageView;
@@ -387,13 +389,19 @@ Vulkan 强制要求使用 `CommandBuffer` 对象来向 GPU  发出命令. 具体
 
 ### Buffer / Device Memory
 
+待补充
+
 
 
 ### Descriptor Set / Descriptor Set Pool
 
 #### PipelineLayout
 
+待补充
+
 #### DescriptorSetLayoutDescription
+
+待补充
 
 #### DescriptorSetLayout  / DescriptorSetLayoutBinding
 

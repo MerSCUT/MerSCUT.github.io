@@ -4,7 +4,7 @@
 
 ### 无模
 
-```C++
+```cpp
 long long qpow(long long a, long long b){
 	long long ans = 1;
     
@@ -23,7 +23,7 @@ long long qpow(long long a, long long b){
 
 ### 有模
 
-```C++
+```cpp
 const long long MOD = 1e9+7;
 
 long long qpow(long long a, long long b){
@@ -48,7 +48,7 @@ long long qpow(long long a, long long b){
 
 好理解, 但是有递归开销, 建议少用.
 
-```C++
+```cpp
 long long qpow(long long a, long long b){
     if (b == 0){
         return 1;
@@ -73,7 +73,7 @@ long long qpow(long long a, long long b){
 - `int findMedian()`
 - 
 
-```C++
+```cpp
 class MedianFinder {
 public:
     priority_queue<int> lower;
@@ -138,7 +138,7 @@ public:
 
 - 若 $pre[i]- pre[front] >= k$ 则一直 `pop_front()` 直到条件不成立. 需要记录最后一个成立的 front, 这是当前固定 $i$ 下的最优解.
 
-```C++
+```cpp
 deque<int> q;
 q.push_back(0);
 int maxAns = 0;
@@ -170,7 +170,7 @@ return maxAns
 
 DFS / BFS : 邻接表模版代码
 
-```C++
+```cpp
 int n,m;
 vector<vector<int>> graph;
 vector<bool> vis;
@@ -239,7 +239,7 @@ int main(){
 
 我们只需要统计每个节点的入度, 就好了.
 
-```C++
+```cpp
 vector<int> topoSort(int n, vector<vector<int>>& graph){
     vector<int> indegree(n+1, 0);
 	// 这里的 graph 构建可以看上面
@@ -288,7 +288,7 @@ vector<int> topoSort(int n, vector<vector<int>>& graph){
 - `bool same(int x, int y)` : 判断是否属于同一集合
 - `int size(int x)` : 获得 $x$ 的大小.
 
-```C++
+```cpp
 class DisjointUnion{
 public:
 	vector<int> parent;
@@ -342,7 +342,7 @@ public:
 - `search(string &s)` : 
 - `prefix(string &s)` 
 
-```C++
+```cpp
 class Trie{
 public:
     struct Node{
@@ -408,7 +408,7 @@ public:
 - `sum(int i)` : 快速求前缀和 
 - `query(int l, int r)` : 调用 两次 `sum`
 
-```C++
+```cpp
 class BIT{
 public:
     int n;		// size
@@ -488,7 +488,7 @@ public:
 
 单点修改 + 区间查询 :
 
-```C++
+```cpp
 class SegmentTree{
 public:
     int n;					// 覆盖范围是 n 个离散元素 (而不是节点数)
@@ -636,7 +636,7 @@ $$
 
 它的算法实现核心非常简单 : 
 
-```C++
+```cpp
 vector<vector<int>> dist(n + 1, vector<int>(n + 1, INF));		// INF -> 1e9
 // Init : 自己到自己距离为 0
 for (int i = 1; i <= n; i++) {

@@ -2,7 +2,7 @@
 
 每一个 Actor 实例以及其派生对象, 都包括一个 BeginPlay 成员函数. 从名字容易看出它是在引擎初始化程序时执行的. 下面是部分代码.
 
-```C++
+```cpp
 void AActor::BeginPlay()
 {
 	TRACE_OBJECT_LIFETIME_BEGIN(this);

@@ -28,7 +28,7 @@ int &a = x;
 
 顾名思义, **左值引用**是**绑定==到==左值上**的引用.
 
-```C++
+```cpp
 int x = 10;
 int &a = x;			// x 是左值, 故可以定义左值引用 a
 
@@ -38,7 +38,7 @@ int &b = 10;		// 10 是右值, 不能定义其左值引用
 
 > 特例 : 若要强行绑定`10` 这种右值的 左值引用, 可以使用**常量左值引用**.
 >
-> ```C++
+> ```cpp
 > const int& b = 10;		// 正确
 > ```
 >
@@ -46,7 +46,7 @@ int &b = 10;		// 10 是右值, 不能定义其左值引用
 
 左值引用 的 常见应用在**函数的参数上**.
 
-```C++
+```cpp
 void swap(int &x, int &y)
 {
 	int temp = x;
@@ -61,7 +61,7 @@ void swap(int &x, int &y)
 
 - 即使没有在类内显示定义复制构造函数, 编译器也会自动生成一个**默认复制构造函数**, 实现**浅拷贝**构造.
 
-```C++
+```cpp
 class myClass{
     myClass(){}; //普通构造函数
     myClass(const myClass& other) {} // 复制构造函数
@@ -78,7 +78,7 @@ class myClass{
 
 右值引用的语法如下 :
 
-```C++
+```cpp
 int&& a = 10;
 ```
 
@@ -90,7 +90,7 @@ int&& a = 10;
 
 **移动语义** (C++ 11) 出现以后, 上述问题被极好地解决了. 观察下面类的"移动构造函数" :
 
-```C++
+```cpp
 class HugeMem {
 public:
     int* data;
@@ -148,7 +148,7 @@ Move Constuctor 中, `other` 的实际数据没有被移动, 而是其指针 `da
 
 在下面的例子中, Move Constructor 会被调用 :
 
-```C++
+```cpp
 HugeMem createHuge(){
     return HugeMem(10000);
 }
@@ -167,7 +167,7 @@ int main()
 
  `std::move()` 函数也是移动语义下诞生的. 它的一种应用场景如下
 
-```C++
+```cpp
 int main()
 {
 	HugeMem a(1000);		// a 是左值
@@ -187,13 +187,13 @@ int main()
 
    例如 `std::unique_ptr`, 该智能指针**独占**其指向的内存区域. 
 
-   ```C++
+   ```cpp
    std::unique_ptr<int> p = std::make_unique<int>(10);
    ```
 
    考虑以下简单的指针解引用函数 :
 
-   ```C++
+   ```cpp
    void func(std::unique_ptr<int> a)
    {
    	std::cout << *a << std::endl;
@@ -209,7 +209,7 @@ int main()
 
 2. **移动赋值函数** : 这是除了移动构造函数以外最常用的情况之一. 它是指在类内基于**移动**语义重载`=`赋值运算符. 应用的语句常见有 `a = std::move(b);`
 
-   ```C++
+   ```cpp
    // 重载赋值运算符 operator=
    HugeMem& operator=(HugeMem&& other) noexcept {
        std::cout << "移动赋值: 清理旧资源，接管新资源" << std::endl;
@@ -240,7 +240,7 @@ int main()
 
 标准库中的交换函数 `std::swap` 曾经是基于 复制 Copy 的. 当 C++ 11 引入移动机制后, 更新为基于 移动 Move 的 :
 
-```C++
+```cpp
 void swap(T& a, T& b)
 {
 	T temp = std::move(a);		// 移动赋值

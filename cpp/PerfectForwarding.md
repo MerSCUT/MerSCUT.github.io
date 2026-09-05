@@ -6,7 +6,7 @@
 
 给出如下模版代码 :
 
-```C++
+```cpp
 template <typename T>
 void func(T&& arg) {
     // ...
@@ -44,7 +44,7 @@ void func(T&& arg) {
 
 `std::forward` 就是用来完成上面的任务的. 看下面的示例
 
-```C++
+```cpp
 template <typename T>
 void func(T&& arg) {
     // 一定只调用左值版本
@@ -60,7 +60,7 @@ void other(int&& i);		// 右值版本
 
 该方法的源码很简单 :
 
-```C++
+```cpp
 template <typename T>
 constexpr T&& forward(std::remove_reference_t<T>& arg) noexcept {
     return static_cast<T&&>(arg);

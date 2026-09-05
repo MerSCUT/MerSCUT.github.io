@@ -4,7 +4,7 @@
 
 # Lightmap 引用声明和绑定
 
-```C++
+```cpp
 UMapBuildDataRegistry* Registry = StorageLevel->GetOrCreateMapBuildData();
 
 Registry->SetupLightmapResourceClusters();
@@ -33,7 +33,7 @@ Registry->SetupLightmapResourceClusters();
 
 关注以下函数 
 
-```C++
+```cpp
 GetLightmapClusterResourceParameters()
 ```
 

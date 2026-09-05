@@ -4,7 +4,7 @@
 
 定义类模版的通用语法 :
 
-```C++
+```cpp
 template<typename T>		// or <class T> (向后兼容)
 class Stack{
 	T item[MAX];  
@@ -34,7 +34,7 @@ Stack<int> st;
 
 STL 中常见的另一种模版定义 :
 
-```C++
+```cpp
 template<typename T, int n>
 class array{
   	T a[n];
@@ -56,7 +56,7 @@ class array{
 
 对比一下另一种实现方案 :
 
-```C++
+```cpp
 template<typename T>
 class array{
 	T* a;
@@ -78,7 +78,7 @@ class array{
 
 另一个特性是 : **类模版的<u>类型参数</u>可以有默认类型值**.
 
-```C++
+```cpp
 template<typename T1, typename T2 = int>
 class myClass{
   	//...  
@@ -95,7 +95,7 @@ class myClass{
 
 当声明模版类对象时, 编译器会产生**隐式实例化** :
 
-```C++
+```cpp
 array<int, 4> ar;
 ```
 
@@ -105,7 +105,7 @@ array<int, 4> ar;
 
 相对应的**显式实例化**, 则是在代码中直接指明自己需要实例化的模版类
 
-```C++
+```cpp
 template class array<int, 4>;
 ```
 
@@ -115,7 +115,7 @@ template class array<int, 4>;
 
 **具体化模版**就是针对那些**通用泛型类无法解决的情况**所写的特殊版本. 语法如下 :
 
-```C++
+```cpp
 struct Pack{
 	int x;
 	int y;
@@ -134,7 +134,7 @@ class array<Pack, 4>{
 
 同时, 对于有**多个模版参数的类模版**, 还可以实现**部分具体化**.
 
-```C++
+```cpp
 // 通用模版定义
 template<typename T1, typename T2>
 class Scene{

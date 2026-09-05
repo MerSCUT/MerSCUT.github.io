@@ -19,7 +19,7 @@
 
 整个程序运行期间存活的对象包括 :
 
-```C++
+```cpp
 Window
 VkInstance
 VkSurfaceKHR
@@ -42,7 +42,7 @@ VkQueue handles
 
 以下对象在 Phase2 中虽然可能帧之间变化, 但不会因为 Resize 而重建.
 
-```C++
+```cpp
 Mesh Vertex/Index Buffer
 Texture Image/View/Sampler
 DescriptorSetLayout

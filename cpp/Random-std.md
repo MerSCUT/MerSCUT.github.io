@@ -23,20 +23,20 @@ C++中, 获取随机数可以用 `rand()` 这个方法, 但有许多劣势
 
 常用的随机数生成引擎是 梅森旋转算法 (Mersense Twister), 以 `std::mt19937` 表示. 
 
-```C++
+```cpp
 std::mt19937 gen(seed)
 ```
 
 引擎对象 `gen()` 中的参数是**引擎初始化种子**. 同一个种子所产生的随机数序列是可复现的, 即程序多次运行结果相同. 若想获得完全随机的结果, 可以通过**硬件熵源 `std::random_device` 对象 ** 来获取随机种子.
 
-```C++
+```cpp
 std::random_device rd;
 unsigned int seed = rd();
 ```
 
 初始化引擎后, 使用 引擎对象的 重载调用运算符 `operator()` 来获取随机数
 
-```C++
+```cpp
 for(int i = 0; i < 10; i++)		// 生成10个随机数
 {
 std::cout <<  gen() << " ";		// 用 gen() 获取随机数
@@ -51,7 +51,7 @@ std::cout <<  gen() << " ";		// 用 gen() 获取随机数
 
 下面是分布类的声明 :
 
-```C++
+```cpp
 // [1,100] 上的均匀整数分布
 std::uniform_int_distribution<> dis_int(1, 100);
 // [1,100) 上的均匀浮点数分布
@@ -60,7 +60,7 @@ std::uniform_real_distribution<> dis_real(1,100);
 
 接下来只需要将引擎对象传入分布的`operator()`即可获取需要的输出 :
 
-```C++
+```cpp
 for(int i = 0; i < 10; i++)		// 生成10个随机数
 {
 std::cout <<  dis_int(gen) << " ";		/

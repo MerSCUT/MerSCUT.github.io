@@ -301,6 +301,8 @@ Q : Then how to get $S_A, S_B, S_C$ ?
 
 ### 3.1 Implicit
 
+待补充
+
 
 
 ### 3.2 Explicit
@@ -309,6 +311,11 @@ Main : parametric equations
 
 #### 3.2.1 Bezier Curves
 
+待补充
+
 
 
 ### 3.3  Mesh Processing
+
+待补充
+

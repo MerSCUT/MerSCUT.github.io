@@ -29,7 +29,7 @@
 
 `array` 的初始化 :
 
-```C++
+```cpp
 #include<array>
 
 array<double, 4> a; // array<类型, 数组元素数>
@@ -51,7 +51,7 @@ array<double, 4> a; // array<类型, 数组元素数>
 
 关于函数 与 数组参数 :
 
-```C++
+```cpp
 int sum(int arr[], int n);
 ```
 
@@ -114,7 +114,7 @@ int sum(int arr[], int n);
 
 一个成员函数被声明为 const :
 
-```C++
+```cpp
 class myClass{
     //...
 public:

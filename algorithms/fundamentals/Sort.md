@@ -27,7 +27,7 @@
 
 代码如下. 可记忆大致模版 :
 
-```C++
+```cpp
 #include <array>
 #include <iostream>
 using namespace std;
@@ -86,7 +86,7 @@ int main() {
 
 上述 `Partition` 的写法是 Lomuto 划分. 一个性能更加优秀但更难读的代码是 Hoare 双指针写法 :
 
-```C++
+```cpp
 int Partition(vector<int>& nums, int low, int high) {
     // 引入随机化避免复杂度退化为 O(n^2)
     int randomIndex = low + rand() % (high - low + 1);
@@ -126,7 +126,7 @@ int Partition(vector<int>& nums, int low, int high) {
 
 手搓 : [排序模版题](https://www.nowcoder.com/practice/40bf74658879460bbf5f1bfe772e8580?tpId=385&tqId=2032996&sourceUrl=%2Fexam%2Foj%3Fpage%3D1%26tab%3D%25E7%25AE%2597%25E6%25B3%2595%25E7%25AC%2594%25E9%259D%25A2%25E8%25AF%2595%25E7%25AF%2587%26topicId%3D389). 具体代码可参考 [菜鸟教程](https://www.runoob.com/w3cnote/heap-sort.html)
 
-```C++
+```cpp
 #include <array>
 #include <iostream>
 using namespace std;
@@ -192,7 +192,7 @@ int main() {
 
 **递归版代码如下** :
 
-```C++
+```cpp
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -253,7 +253,7 @@ int main() {
 
 迭代版代码修改 `mergeSort()` 的合并逻辑为自下向上即可 : 
 
-```C++
+```cpp
 void mergeSort(vector<int>& arr, int start, int end){
     // 迭代版 : 以 2 的幂次合并
     int len = end - start + 1;
@@ -294,7 +294,7 @@ $$
 
 所以添加一个全局的变量 `cnt`, 然后稍微调整上面的 `merge` 算法, 补充 `cnt` 的计算逻辑就可以获取逆序对总数了.
 
-```C++
+```cpp
 int cnt = 0;			// 逆序对总数
 void merge(vector<int>& arr, int start, int mid, int end){
     // 注 : [start, mid] 和 [mid + 1, end] 各自升序.

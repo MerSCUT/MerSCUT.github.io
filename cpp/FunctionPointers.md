@@ -23,13 +23,13 @@
 
 函数与函数指针的声明是相同的.  普通函数的声明为 :
 
-```C++
+```cpp
 int add(int, int);			// 注 : 声明可以省略参数名.
 ```
 
 而函数指针的声明为
 
-```C++
+```cpp
 int (*ptr)(int, int)
 ```
 
@@ -61,14 +61,14 @@ int (*ptr)(int, int)
 
 首先, 如何给一个函数指针赋值? 看看下面的例子 :
 
-```C++
+```cpp
 bool A(double d) { return true; }
 bool B(double d) { return true; }
 ```
 
 我们可以声明以下函数指针, 并让其指向 `A` (函数签名) :
 
-```C++
+```cpp
 bool (*ptr)(double) = A;
 ```
 
@@ -91,7 +91,7 @@ bool (*ptr)(double) = A;
 
 现在我们可以看一看更复杂的例子. 如题, 如果要定义一种指针, 它指向的是**类中的某种类型的成员函数**, 该怎么写?
 
-```C++
+```cpp
 class C {
 public:
     void func();
@@ -100,7 +100,7 @@ public:
 
 先公布答案. 要声明一个指向 `func` 的指针, 需要这么写 :
 
-```C++
+```cpp
 void (Material::*methodPtr)() = &Material::sample;
 ```
 
@@ -118,7 +118,7 @@ void C::func() {}
 
 - 也就是说, 编译器眼里, 这个成员函数是 :
 
-  ```C++
+  ```cpp
   void C::func(const C* this);
   ```
 
@@ -128,7 +128,7 @@ void C::func() {}
 
 仿照一开始的思路, 我们将上面的式子改写为指针形式 :
 
-```C++
+```cpp
 void (C::*methodPtr)()
 ```
 
@@ -161,7 +161,7 @@ void (C::*methodPtr)()
 
 我们可以使用以下赋值语句, 让 `ptr` 指向类 `C` 的成员函数 `func()`.
 
-```C++
+```cpp
 void (C::*methodPtr)() = &C::func();
 ```
 
@@ -171,7 +171,7 @@ void (C::*methodPtr)() = &C::func();
 
 到类内的函数指针语境下也是一样的. 其方法是 :
 
-```C++
+```cpp
 (obj.*methodPtr)();
 ```
 
@@ -188,4 +188,6 @@ void (C::*methodPtr)() = &C::func();
    因此需要先用括号强行让编译器解析 `(obj.*methodPtr)` 为一个对象的指针访问
 
 # 简化
+
+待补充
 

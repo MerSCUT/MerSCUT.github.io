@@ -11,7 +11,7 @@
 
 一个 Shader 需要在 C++ 中创建一个对应的类型. 最通用的 C++ Shader 类继承自 `FGlobalShader`
 
-```C++
+```cpp
 class MyCS : public FGlobalShader
 {};
 ```
@@ -26,7 +26,7 @@ class MyCS : public FGlobalShader
 
 首先要在类中用宏声明 Shader :
 
-```C++
+```cpp
 DECLARE_GLOBAL_SHADER(MyCS);
 SHADER_USE_PARAMETER_STRUCT(MyCS, FGlobalShader);
 ```
@@ -38,7 +38,7 @@ SHADER_USE_PARAMETER_STRUCT(MyCS, FGlobalShader);
 
 接下来, 需要定义 `FParameters` 结构体. 这个名称是 UE 固定的类型名, 不能随意更换为其它标识符.
 
-```C++
+```cpp
 BEGIN_SHADER_PARAMETER_STRUCT(FParameters, )
     SHADER_PARAMETER(FIntPoint, TextureExtent)
     SHADER_PARAMETER_RDG_TEXTURE(Texture2D<float4>, SourceLightmap)
@@ -51,7 +51,7 @@ END_SHADER_PARAMETER_STRUCT()
 - `ShouldCompilePermutation` : 返回 `true` 则为这个 Platform + Permutation 编译 Shader。否则不编译, 不放入 Shader Map
 - `ModifyCompilationEnvironment` : 负责在 **决定需要编译后**, 修改编译环境. 在这里, 它的作用是设置 HLSL 宏 (NDGI_LIGHTMAP_COPY_THREADGRUP_SIZE)
 
-```C++
+```cpp
 static bool ShouldCompilePermutation(const FGlobalShaderPermutationParameters& Parameters)
 {
     return EnumHasAllFlags(Parameters.Flags, EShaderPermutationFlags::HasEditorOnlyData)
@@ -81,7 +81,7 @@ static void ModifyCompilationEnvironment(
 
 接下来, 需要在 `MyCS` 类外使用以下宏, 建立 `MyCS -> .usf -> HLSL 入口 -> Stage` 的映射 :
 
-```C++
+```cpp
 IMPLEMENT_GLOBAL_SHADER(
     FNDGICopyNativeLightmapCS,
     "/Plugin/GPULightmass/Private/NDGI/NDGILightmapCopy.usf",
@@ -97,7 +97,7 @@ IMPLEMENT_GLOBAL_SHADER(
 
 Shader 的注册, 编译工作已经完成. 但是 Shader 代码还无法执行. 为了简单, 我们利用 RDG 来自动管理, 调度 Shader 的执行. 因此我们给出以下函数 : 
 
-```C++
+```cpp
 void AddNDGICopyNativeLightmapPass(
     FRDGBuilder& GraphBuilder,
     FRDGTextureRef SourceTexture,

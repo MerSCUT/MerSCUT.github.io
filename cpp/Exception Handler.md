@@ -14,7 +14,7 @@
 
 - 主调用者用 `try{} catch(){}` 结构捕获被调用者抛出的异常, 基本结构如下
 
-  ```C++
+  ```cpp
   void main_func()
   {
       try
@@ -86,7 +86,7 @@ C++ 的标准库中的函数操作可以做到以下几种保障之一 :
 
 但是实际编码过程中, 可能由于各种主客观原因, 导致资源并没有正确释放. 例如, 在 `new int[10]` 使用时抛出了异常, 此时程序的控制流不会往下执行到 `delete [] int`, 这会导致十分难以排查的内存泄漏bug.
 
-```C++
+```cpp
 void func(int y)
 {
 	int* a = new int[10];
@@ -103,7 +103,7 @@ void func(int y)
 
 例如, 在请求文件时使用如下定义的类 :
 
-```C++
+```cpp
 class File_ptr
 {
   	FILE* p;
@@ -160,7 +160,7 @@ public:
 
 一种更灵活的方法是 : 条件`noexcept` :
 
-```C++
+```cpp
 void my_func(int& x) noexcept(Expr) ;
 ```
 
@@ -172,7 +172,7 @@ void my_func(int& x) noexcept(Expr) ;
 
 常用例 : 
 
-```C++
+```cpp
 void func1() noexcept {}		// 无条件 noexcept 关键字
 void func2() {}
 void f1() noexcept(noexcept(func1()));	// 第一个noexcept(.) 是条件关键字, 第二个是运算符

@@ -129,7 +129,7 @@ Prototyping (原型) : 只能完成某个简单点子的简单代码. 真正落�
 
 此时, 引入 Command 模式. 首先定义一个 `Command` 命令抽象基类 :
 
-```C++
+```cpp
 class Command{
 public:
     virtual ~Command() {}
@@ -139,7 +139,7 @@ public:
 
 随后, 我们设置好几种命令所对应的行为 : 
 
-```C++
+```cpp
 class JumpCommand : public Command{
 public:
     virtual void execute() { jump(); }
@@ -153,7 +153,7 @@ public:
 
 然后在 `InputHandler` 中 :
 
-```C++
+```cpp
 class InputHandler{
 public:
     void handleInput();

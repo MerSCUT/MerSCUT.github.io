@@ -8,7 +8,7 @@
 
 `std::thread` 是标准库中提供的线程库. 需要`#include<thread>`. 使用示例如下:
 
-```C++
+```cpp
 void f1();	// 定义略去
 struct F{	// 函数类/结构
     void operator()(int x);		// 类F对象的调用运算符()
@@ -37,7 +37,7 @@ void user()
 
 标准库提供了`mutex`类作为信号量, 来给互斥资源上锁, 任何线程在访问资源前需要先获得该资源的锁. 使用`mutex`需要`#include<mutex>`.
 
-```C++
+```cpp
 mutex m;		// 互斥量	
 int share;		// 共享资源
 
@@ -50,7 +50,7 @@ void f()
 
 互斥量与共享资源通常有一一对应的关系, 所以组织成一个整体是更好的选择 :
 
-```C++
+```cpp
 class shareResource
 {
   	mutex m;
@@ -62,4 +62,6 @@ class shareResource
 
 
 # 死锁
+
+待补充
 

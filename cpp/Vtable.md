@@ -10,7 +10,7 @@
 
 先看比较好理解的**数据成员**. 重点是****内存对齐** Memory Alignment** 机制.
 
-```C++
+```cpp
 struct A{
 	char a;						// 1B
     char b;						// 1B
@@ -75,7 +75,7 @@ int main(){
 
 在前一节的基础上, 尝试往仅有数据成员的结构体中**引入虚函数** :
 
-```C++
+```cpp
 struct C{
 	virtual bool foo();	// ?
     int x;				// 4B
@@ -84,7 +84,7 @@ struct C{
 
 一旦一个类中声明了虚函数, 编译器就会往其中偷偷**加一个数据成员** `vptr` , 称为**虚函数指针**, 效果如同 :
 
-```C++
+```cpp
 struct C{
 	VirtualTable* __vptr;		// 8B (64 位系统)
     int x;						// 4B
@@ -103,7 +103,7 @@ struct C{
 
 用一个例子来验证 : (From Gemini)
 
-```C++
+```cpp
 #include <iostream>
 
 struct Base {
@@ -313,7 +313,7 @@ Derived *pD = &d;
 
 Thunk 的汇编代码写起来大致如下 :
 
-```C++
+```cpp
 sub ecx, 16				// 校正指针偏移
 jmp Derived::vf2		// 跳转到真正的代码段.
 ```
@@ -383,7 +383,7 @@ class D : public B, public C{
 
 C++ 中, 使用**虚继承Virtual Inheritance**机制来解决这种情况. 我们需要将上面的代码改为 :
 
-```C++
+```cpp
 class A{
 };
 class B : virtual public A {

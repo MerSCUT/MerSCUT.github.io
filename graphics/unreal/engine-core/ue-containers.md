@@ -4,7 +4,7 @@
 
 这一部分涉及数组容量管理 :
 
-```C++
+```cpp
 FORCEINLINE SizeType AddUninitialized()
 {
     CheckInvariants();
@@ -34,7 +34,7 @@ FORCEINLINE SizeType AddUninitialized()
 
 该成员是`ElementAllocatorType` 类型. 定义上是一个 `isTrue ? A : B` 的结构 (编译期类型推断专用模版)
 
-```C++
+```cpp
 using ElementAllocatorType = std::conditional_t<
     AllocatorType::NeedsElementType,							// 需要元素
     typename AllocatorType::template ForElementType<ElementType>,
@@ -80,7 +80,7 @@ TQueue 在 UE 中主要用于 **多线程同步**数据.  一个 TQueue 有不�
 
 安全级别越高的同时, 性能也就相应越差.
 
-```C++
+```cpp
 /**
  * Enumerates concurrent queue modes.
  */
@@ -99,7 +99,7 @@ enum class EQueueMode
 
 接下来深入到 TQueue 中 :
 
-```C++
+```cpp
 template<typename T, EQueueMode Mode = EQueueMode::Spsc>
 class TQueue
 ```
@@ -112,7 +112,7 @@ class TQueue
 
 其数据成员也能体现上面这一点 :
 
-```C++
+```cpp
 private:
 	/** Structure for the internal linked list. */
 	struct TNode
@@ -144,7 +144,7 @@ TNode::NextNode 不需要对齐, 因为它唯一的使用点是 TQueue 的 构�
 
 ## Constructor 和 Destructor
 
-```C++
+```cpp
 /** Default constructor. */
 	TQueue()
 	{
@@ -170,7 +170,7 @@ TNode::NextNode 不需要对齐, 因为它唯一的使用点是 TQueue 的 构�
 
 Dequeue 相对简单
 
-```C++
+```cpp
 bool Dequeue(FElementType& OutItem)
 	{
 		TNode* Popped = Tail->NextNode;
@@ -198,7 +198,7 @@ bool Dequeue(FElementType& OutItem)
 
 而 Enqueue 需要根据队列的并发安全级别来进行不同的操作 :
 
-```C++
+```cpp
 bool Enqueue(const FElementType& Item)
 	{
 		TNode* NewNode = new TNode(Item);
@@ -238,7 +238,7 @@ bool Enqueue(const FElementType& Item)
 
 `InterlockedExchangePtr` 的详细定义 : 
 
-```C++
+```cpp
 static FORCEINLINE void* InterlockedExchangePtr( void*volatile* Dest, void* Exchange )
 	{
 		#if !(UE_BUILD_SHIPPING || UE_BUILD_TEST) 
@@ -254,7 +254,7 @@ static FORCEINLINE void* InterlockedExchangePtr( void*volatile* Dest, void* Exch
 
 return 后面的函数是 Windows 中的接口, 声明为 :
 
-```C++
+```cpp
 PVOID InterlockedExchangePointer(
 	PVOID volatile *Target,
 	PVOID 		   Value

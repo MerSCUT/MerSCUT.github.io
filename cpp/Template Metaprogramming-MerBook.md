@@ -34,7 +34,7 @@
 
 `enable_if` 的核心源码很简洁 :
 
-```C++
+```cpp
 // 1. 泛型通用模板：默认情况（条件 B 为 false 时匹配）。里面是空的。
 template<bool B, class T = void>
 struct enable_if {};
@@ -54,7 +54,7 @@ struct enable_if<true, T> { typedef T type; };
 
 看看下面一个应用实例 :
 
-```C++
+```cpp
 // 模板 1：只接收int (Integral)
 template <typename T>
 typename std::enable_if<std::is_integral<T>::value, void>::type
@@ -88,7 +88,7 @@ process_number(T num) {
 
 应用模版元编程完成上述逻辑 :
 
-```C++
+```cpp
 // Trivially copyable
 template <typename T>
 typename std::enble_if< std::is_trivially_copyable<T>::value, void>::type
@@ -110,7 +110,7 @@ fast_copy(T* dest, const T* src, size_t count)
 
 自==C++ 17==后, 编译器分支语句`if constexpr`  的出现改善了这个问题. 可以精简如下 : 
 
-```C++
+```cpp
 template <typename T>
 void fast_copy(T* dest, const T* src, size_t count) {
     if constexpr(std::is_trivially_copyable<T>::value){
@@ -136,7 +136,7 @@ void fast_copy(T* dest, const T* src, size_t count) {
 
 直接看看如何使用 `requires` 来改写前面**处理整数的逻辑**. 这个例子中使用的是 Required Clause (子句)
 
-```C++
+```cpp
 // 旧版写法
 template <typename T>
 typename std::enable_if<std::is_integral<T>::value, void>::type
@@ -154,7 +154,7 @@ void process_number(T num){
 
 事实上还能用 Concepts 进一步简化代码 :
 
-```C++
+```cpp
 #include <concepts>		// for std::integral
 
 // 甚至连 requires 关键字都可以省略，直接把概念当作类型名使用！
@@ -166,7 +166,7 @@ void process_number(T num) {
 
 而对于一些复杂的场景, 需要精细地自定义 Concepts 时, 也可以结合 `concept` 和 `requires` 关键字 (此时`requires`的用法是 requires expression) :
 
-```C++
+```cpp
 #include <concepts>
 #include <string>
 
@@ -185,7 +185,7 @@ concept HasName = requires(T a) {
 
   - 定义了 `HasName` 后, 可以直接在函数中使用它.
 
-    ```C++
+    ```cpp
     void printName(HasName auto const & obj);
     ```
 
@@ -199,7 +199,7 @@ concept HasName = requires(T a) {
 
   - `requires` expression 可以包含以下 4 种类型的检查逻辑 :
 
-    ```C++
+    ```cpp
     template <typename T>
     concept SmartBuffer = requires(T t) {
         // 1. 简单要求 (Simple Requirement)
@@ -230,7 +230,7 @@ concept HasName = requires(T a) {
 
 - Requires Clause : 第一个例子中的就是 requires 子句. 它的作用是模版的准入开关. 格式为
 
-  ```C++
+  ```cpp
   template<typename T>
   requires(std::is_integral<T>::value)
   // 函数模版定义

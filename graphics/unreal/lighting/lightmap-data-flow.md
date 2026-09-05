@@ -13,7 +13,7 @@
 
 随后在 `ConvertToLightSample` 函数中被转移到 `LightSampleData`.
 
-```C++
+```cpp
 FLightSampleData ConvertToLightSample(FLinearColor IncidentLighting, FLinearColor LuminanceSH)
 ```
 
@@ -21,7 +21,7 @@ FLightSampleData ConvertToLightSample(FLinearColor IncidentLighting, FLinearColo
 
 首先确定返回值 `FLightSampleData` 的数据结构, 它包含以下 4 个关键成员.
 
-```C++
+```cpp
 /**
 * Coefficients[0] stores the normalized average color,
 * Coefficients[1] stores the maximum color component in each lightmap basis direction,
@@ -43,7 +43,7 @@ bool bIsMapped;
 
 1. `bIsMapped` : 
 
-   ```C++
+   ```cpp
    // 返回目标
    FLightSampleData Sample;	
    
@@ -54,7 +54,7 @@ bool bIsMapped;
 
 2. 过渡容器 `DirLuma` : LSH 的 A 通道包括了一些亮度信息, RGB 通道近似表示主光源方向.
 
-   ```C++
+   ```cpp
    float DirLuma[4];
    // Revert diffuse conv done in LightmapEncoding.ush for preview to get actual luma
    DirLuma[0] = LuminanceSH.A / 0.282095f; 
@@ -66,14 +66,14 @@ bool bIsMapped;
 
    LSH 中的值有特殊含义, A 通道与环境亮度相关, 也是做归一化等缩放操作的重要依据. 因此它派生出了两个量 :
 
-   ```C++
+   ```cpp
    float DirScale = 1.0f / FMath::Max(0.0001f, DirLuma[0]);
    float ColorScale = DirLuma[0];
    ```
 
 3. `Coefficients` ( 下记 $C$ ): 开始填写核心数据.
 
-   ```C++
+   ```cpp
    Sample.Coefficients[0][0] = ColorScale * IncidentLighting.R * IncidentLighting.R;
    Sample.Coefficients[0][1] = ColorScale * IncidentLighting.G * IncidentLighting.G;
    Sample.Coefficients[0][2] = ColorScale * IncidentLighting.B * IncidentLighting.B;
@@ -95,7 +95,7 @@ bool bIsMapped;
 
 接下来是对 LightSampleData 执行量化操作. 目标的数据结构为 `FQuantizedLightmapData` :
 
-```C++
+```cpp
 // 量化后的光照数据
 struct FLightMapCoefficients
 {
@@ -143,7 +143,7 @@ struct FQuantizedLightmapData
 
 具体的量化从 `AFLTW` 中下面的入口处开始 :
 
-```C++
+```cpp
 QuantizeLightSamples(
     LightSampleData, 				// 原始光照贴图数据
     QuantizedLightmapData->Data, 	// 这里以及之后的参数都是引用
@@ -154,7 +154,7 @@ QuantizeLightSamples(
 
 函数头如下
 
-```C++
+```cpp
 void QuantizeLightSamples(
 	TArray<FLightSampleData> InLightSamples,
 	TArray<FLightMapCoefficients>& OutLightSamples,
@@ -186,7 +186,7 @@ void QuantizeLightSamples(
 
 量化完后, 函数进行了安全性检查和验证, 最终于 `FLightMap2D::AllocateLightMap` 中创建光照贴图.
 
-```C++
+```cpp
 MeshBuildData.LightMap = FLightMap2D::AllocateLightMap(
     Registry,
     QuantizedLightmapData,
@@ -203,7 +203,7 @@ MeshBuildData.LightMap = FLightMap2D::AllocateLightMap(
 
 函数头为 :
 
-```C++
+```cpp
 TRefCountPtr<FLightMap2D> FLightMap2D::AllocateLightMap(UObject* LightMapOuter,
 	FQuantizedLightmapData*& SourceQuantizedData,
 	const TMap<ULightComponent*, FShadowMapData2D*>& SourceShadowMapData,
@@ -218,7 +218,7 @@ TRefCountPtr<FLightMap2D> FLightMap2D::AllocateLightMap(UObject* LightMapOuter,
 
 该函数先创建返回目标.
 
-```C++
+```cpp
 TRefCountPtr<FLightMap2D> LightMap = TRefCountPtr<FLightMap2D>(new FLightMap2D());
 ```
 
@@ -226,7 +226,7 @@ TRefCountPtr<FLightMap2D> LightMap = TRefCountPtr<FLightMap2D>(new FLightMap2D()
 
 再创建一个 Allocation 对象 `FLightMapAllcation`
 
-```C++
+```cpp
 TUniquePtr<FLightMapAllocation> Allocation = MakeUnique<FLightMapAllocation>();
 ```
 
@@ -240,13 +240,13 @@ TUniquePtr<FLightMapAllocation> Allocation = MakeUnique<FLightMapAllocation>();
 
 后续的代码几乎都在填充 Allocation 中的字段. 最后, 将信息完备的 Allocation 加入到 AllocationGroup 中 :
 
-```C++
+```cpp
 AllocationGroup.Allocations.Add(MoveTemp(Allocation));
 ```
 
 准备好 AllocationGroup, 将其加入待处理队列 `PendingLightMaps` 中 :
 
-```C++
+```cpp
 PendingLightMaps.Add(MoveTemp(AllocationGroup));
 ```
 
@@ -264,7 +264,7 @@ PendingLightMaps.Add(MoveTemp(AllocationGroup));
 
 `FLightMap2D` 继承自 `FLightMap`, 父类包括如下关键成员 :
 
-```C++
+```cpp
 public:
 	/** The GUIDs of lights which this light-map stores. */
 	TArray<FGuid> LightGuids;
@@ -310,13 +310,13 @@ private:
 
 直到所有物体都处理完, 放入了 `PendingLightMaps`后, 整个 AFLTW 终于进入到了最核心的编码操作 :
 
-```C++
+```cpp
 FLightMap2D::EncodeTextures(&LightingContext, true, true);
 ```
 
 函数头如下
 
-```C++
+```cpp
 /**
  * Executes all pending light-map encoding requests.
  * @param	bLightingSuccessful	Whether the lighting build was successful or not.

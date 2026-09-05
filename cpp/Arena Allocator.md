@@ -97,7 +97,7 @@ allocator, 又称为**内存分配器**, 其功能是什么, 为什么需要它?
 
 假设一棵二叉树的结点定义为
 
-```C++
+```cpp
 struct Node{
 	int val;
 	Node* left;
@@ -153,7 +153,7 @@ struct Node{
 
 下面是一个极简的 Arena Allocator 内存分配器类实现. 
 
-```C++
+```cpp
 // By Gemini Pro
 #include <cstddef>
 #include <new>

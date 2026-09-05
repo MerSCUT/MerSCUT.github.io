@@ -14,7 +14,7 @@
 >
 > 引擎通过提取 $L$，可以将最核心的计算资源（如更高精度的 Log 空间编码、残差存储通道 `Residual`）全部倾斜给亮度通道，而 $U, V, W$ 使用常规精度存储即可满足视觉要求。
 
-```C++
+```cpp
 static void GetLUVW(const float RGB[3], float& L, float& U, float& V, float& W)
 
 {
