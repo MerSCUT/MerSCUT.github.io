@@ -6,7 +6,6 @@ title: C++
 # C++
 
 - [Arena Allocator](./Arena%20Allocator.html)
-- [C++ Deep Dive](./C++%20Deep%20Dive.html)：面试话题汇总；
 - [Class Templates](./ClassTemplates.html)
 - [Data Structures in C++](./Data%20Structures%20in%20C++.html)
 - [Exception Handler](./Exception%20Handler.html)
