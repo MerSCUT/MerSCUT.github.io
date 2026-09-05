@@ -320,7 +320,7 @@ GraphicsPipeline 在创建时, 会**绑定在某个 Renderpass 的某个 Subpass
 
 在绘制一个三角形的简单任务中, 我们只需要将 SwapChain 在每一帧分配给我们的 `VkImage` 所对应的视图 `VkImageView` 传入到 Render Pass 定义中唯一的那个 Attachment 中就好.  更复杂一些的情况呢? 比如我们的 Render Pass 定义了两个 Attachment, 一个用来存放颜色图, 另一个用来存放深度图. 我们需要将两个 `ImageView`放入同一个数组中, 送入 Attachment 数组. 
 
-==**Vulkan 定义了 `FrameBuffer` 对象, 用来完成将 `ImageView` 插入 `Attachment` 的任务.**==
+****Vulkan 定义了 `FrameBuffer` 对象, 用来完成将 `ImageView` 插入 `Attachment` 的任务.****
 
 Frame Buffer 也是通过描述符显示创建的. 它的 `CreateInfo` 中, 两个重要的成员就是  **RenderPass 和 attachments 数组.** 一个不正式的定义如下 :
 

@@ -5,5 +5,5 @@ title: Lighting
 
 # Lighting
 
-- [CPU Lightmass](./cpu-lightmass.md)
-- [Spherical Harmonics](./spherical-harmonics.md)
+- [CPU Lightmass](./cpu-lightmass.html)
+- [Spherical Harmonics](./spherical-harmonics.html)

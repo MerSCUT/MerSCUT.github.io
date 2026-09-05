@@ -132,7 +132,7 @@ void fast_copy(T* dest, const T* src, size_t count) {
 
 # 3. 约束
 
- ==C++ 20== 引入了 **Concepts (概念 / 约束, 为避免歧义, 下文都用 Concepts 来避免与中文混淆)** 机制以及 `requires` 关键字.
+ **C++ 20** 引入了 **Concepts (概念 / 约束, 为避免歧义, 下文都用 Concepts 来避免与中文混淆)** 机制以及 `requires` 关键字.
 
 直接看看如何使用 `requires` 来改写前面**处理整数的逻辑**. 这个例子中使用的是 Required Clause (子句)
 

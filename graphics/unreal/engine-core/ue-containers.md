@@ -52,7 +52,7 @@ using ElementAllocatorType = std::conditional_t<
 
 追溯源码, 可看到这是一个**嵌套类**, 定义在 `TSizedHeapAllocator` 类下. (也可以分析出, TArray 中的 AllocatorType 在使用时会被实例化为 Allocator 等分配器类型.) 在末尾可以看见它仅有一个数据成员 `FScriptContainerElement* Data`.
 
-- 继续追溯 `FScriptContainerElement`, 可以发现它是一个空结构体. ==后续可以分析为什么需要这样==
+- 继续追溯 `FScriptContainerElement`, 可以发现它是一个空结构体. **后续可以分析为什么需要这样**
 
 该类具有 5 类关键接口 :
 

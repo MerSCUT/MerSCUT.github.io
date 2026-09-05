@@ -5,5 +5,5 @@ title: Games101
 
 # Games101
 
-- [Games101](./Games101.md)
-- [Games101 Pro](./Games101-Pro.md)
+- [Games101](./Games101.html)
+- [Games101 Pro](./Games101-Pro.html)
