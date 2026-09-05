@@ -1,6 +1,8 @@
 title: Some Technical Notes
 theme: minima
 
+markdown: kramdown
+
 header_pages:
   - graphics/index.md
   - unreal/index.md
