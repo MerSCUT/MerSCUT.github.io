@@ -3,8 +3,11 @@
 渲染方程描述了表面某一点 $x$ 在方向 $\omega_o$ 上的出射辐射度（Radiance） $L_o$：
 
 $$
+
 L_o(x, \omega_o) = L_e(x, \omega_o) + \int_{\Omega} f_r(x, \omega_i, \omega_o) L_i(x, \omega_i) \cos\theta_i d\omega_i
+
 $$
+
 其中：
 
 - $L_e$ 是自发光项。
@@ -27,9 +30,13 @@ $$
 光子映射的核心思想是**将光源发射出的连续能量**（辐射通量 Radiant Flux，记为 $\Phi$）**离散化为数量有限的光子**（Photons）。
 
 假设光源的总辐射通量为 $\Phi_{total}$，算法从光源发射 $N$ 个光子。每个光子携带的初始能量（通量）为：
+
 $$
+
 \Delta \Phi = \frac{\Phi_{total}}{N}
+
 $$
+
 光子在场景中通过蒙特卡洛随机游走进行传播.
 
 每次撞击表面时，使用**俄罗斯轮盘赌（Russian Roulette）**结合材质的反照率（Albedo）决定光子是**发生反射（漫反射/高光）还是被吸收**
@@ -43,15 +50,23 @@ $$
 我们需要计算相机视线击中点 $x$ 的出射辐射度 $L_o$。这就需要用第一阶段收集到的光子来近似渲染方程中的积分。
 
 根据 Radiance 的公式简单变形, 代入渲染方程中, 可得 :
+
 $$
+
 L_o(x, \omega_o) \approx \int_{A} f_r(x, \omega_i, \omega_o) \frac{d^2\Phi(x, \omega_i)}{dA}
+
 $$
+
 以离散来估计连续, 假设摄像机射出的射线打到了 点 $x$, 我们在点 $x$ 处寻找最近的 $k$ 个光子（或者在固定半径 $r$ 内寻找所有光子），这些光子分布在一个半径为 $r$ 的圆形区域 $\Delta A = \pi r^2$ 内。
 
 因此，渲染方程的近似离散求和公式变为：
+
 $$
+
 L_o(x, \omega_o) \approx \frac{1}{\pi r^2} \sum_{p=1}^k f_r(x, \omega_p, \omega_o) \Delta \Phi_p
+
 $$
+
 这里：
 
 - $p$ 是搜索到的第 $p$ 个光子。

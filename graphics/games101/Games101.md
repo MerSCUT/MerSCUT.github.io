@@ -24,12 +24,17 @@
   - Translation
 
 $$
+
 \begin{bmatrix}x'\\y'\end{bmatrix} = \begin{bmatrix}a_{11} & a_{12} \\ a_{21} & a_{22} \end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix} + \begin{bmatrix}t_x\\t_y\end{bmatrix}
+
 $$
 
 It can be represented as
+
 $$
+
 \begin{bmatrix}x'\\y' \\ 1\end{bmatrix} = \begin{bmatrix}a_{11} & a_{12} & t_x \\ a_{21} & a_{22} & t_y \\0 & 0 & 1 \end{bmatrix}\begin{bmatrix}x\\y \\ 1\end{bmatrix}
+
 $$
 
 - Rotation matrix is orthogonal matrix : $R^T = R^{-1}$.
@@ -62,8 +67,11 @@ Pipeline (Every Frame) :
       4. Notice that $\vec g \times \vec t = \vec x = (1,0,0)^T$
 
    4. Transformation matrix : 
+
       $$
+
       M_{view} = \begin{bmatrix}x_{\vec g\times \vec t} & x_{\vec t} & x_{-\vec g} &0 \\ y_{\vec g\times \vec t} & y_{\vec t} & y_{-\vec g} &0 \\ z_{\vec g\times \vec t} & z_{\vec t} & z_{-\vec g} &0 \\ 0 & 0 & 0& 1 \end{bmatrix}\cdot \begin{bmatrix} 1 & 0 & 0 & -e_x \\ 0 & 1  & 0 & -e_y \\ 0 & 0 & 1 & -e_z \\ 0 & 0 & 0 & 1 \end{bmatrix}
+
       $$
       
 
@@ -72,9 +80,13 @@ Pipeline (Every Frame) :
    1. (Perspective$\to$ Orthoganal) Transformation
 
       1. Turn Perspective projection to Orthoganal projection.
+
          $$
+
          M_{persp\to orth} = \begin{bmatrix}n & 0 & 0 & 0 \\ 0  & n & 0 & 0 \\ 0 & 0 & n+f & -nf \\ 0 & 0 & 1 & 0\end{bmatrix}
+
          $$
+
          where $n $ is $z$ coordinate of **near** plane, $f$ is the far one. 
 
       2. After $persp \to orth$ transformation, the perspective projection is equivalent to Orthoganal Projection.
@@ -82,9 +94,13 @@ Pipeline (Every Frame) :
    2. (Orthoganal) Transformation.
 
       1. Transformation from $[l,r]\times [b,t]\times [f,n] \to [-1,1]^3$.
+
          $$
+
          M_{orth} = \begin{bmatrix}\frac{2}{r-l} & 0 & 0 & 0\\ 0 & \frac2{t-b} & 0 & 0 \\ 0 & 0 & \frac2{n-f} & 0 \\ 0 & 0& 0 & 1\end{bmatrix}\cdot \begin{bmatrix}1 & 0 & 0 & -(r+l)/2 \\ 0 & 1 & 0 & -(t+b)/2 \\ 0 & 0 & 1 & -(n+f)/2 \\ 0 & 0 & 0 & 1 \end{bmatrix}
+
          $$
+
          Translation, then Scale.
 
       2. **How to get $l,r,b,t$ ?** From **Aspect_ratio** and **eye_fovY** (Known)
@@ -148,9 +164,13 @@ This simple model assume that the light reflected by each shading points consist
 - Ambient lighting
 
 So the final color
+
 $$
+
 L = L_s + L_d + L_a
+
 $$
+
 It's a local shading model. There are several (**Known**) vectors for calculation.
 
 - $\vec v$ : Viewer direction.
@@ -163,9 +183,13 @@ It's a local shading model. There are several (**Known**) vectors for calculatio
 And some laws for fomula :
 
 - **Lambert's cosine law**
+
   $$
+
   \cos \theta = \vec n \cdot \vec l
+
   $$
+
   It's used in diffuse term.
 
 - **Light Falloff** : (Law of Conservation of Energy)
@@ -185,7 +209,9 @@ Figure out each term of Blinn-Phong Shading model.
    - Diffuse Light is irrelavent to viewer direction.
 
    $$
+
    L_d = k_d \cdot \frac I{r^2} \cdot \max(0, \vec n\cdot \vec l)
+
    $$
 
    Where
@@ -201,7 +227,9 @@ Figure out each term of Blinn-Phong Shading model.
    - Metrics by $\vec h \cdot \vec n$, where $\vec h = normalized(\vec v + \vec l)$
 
    $$
+
    L_s = k_s \cdot \frac I{r^2} \cdot \max(0, \vec h \cdot \vec n)^p
+
    $$
 
    Where 
@@ -212,9 +240,13 @@ Figure out each term of Blinn-Phong Shading model.
 3. **Ambient Term** :
 
    Features : Light absorbed from environment is same. (Approximation)
+
    $$
+
    L_a = k_a \cdot I_a
+
    $$
+
    Where
 
    - $k_a$ is ambient coefficient;
@@ -246,13 +278,21 @@ How do we discrete the object into shading points (Then apply Blinn-Phong model 
 Q : How to define the **normal of vertex** ?
 
 A : The average normal vector of adjacent triangles of vertex.
+
 $$
+
 \vec n_v = \frac{\sum_i \vec n_i}{\| \sum_i \vec n_i\|}
+
 $$
+
 $\vec n_i$ is the normal of  $i$-th adjacent traignel. Further more, it could be **weighted** form.
+
 $$
+
 \vec n_v = \frac{\sum_i w_i\vec n_i}{\| \sum_i w_i \vec n_i\|}
+
 $$
+
 where $w_i$ is weight.
 
 
@@ -266,9 +306,12 @@ It's a **coordinate system for a triangle**.
 
 
 In 3D space, a point $P$ inside $\Delta ABC$ can be represented as
+
 $$
+
 P = \alpha A + \beta B + \gamma C
 $$
+
 where 
 
 - $\alpha + \beta + \gamma = 1$ : It forces  $P$ to lie in the same plane of $\Delta ABC$.
@@ -277,9 +320,13 @@ where
 
 
 Every point $P$ correspond to $(\alpha,\beta,\gamma)$. So if we know some information $V_A,V_B,V_C$ of $A,B,C$, **we can interpolate it to $P$ by**
+
 $$
+
 V_P := \alpha V_A + \beta V_B + \gamma V_C
+
 $$
+
 where
 
 - $V_{(\cdot)}$ can be vertex, color, depth ($z$-coordinate), texture coordinate, etc.
@@ -287,8 +334,11 @@ where
 Q : Given $P$ inside the triangle $ABC$, how to calculate it's barycentric coordinate $\alpha,\beta,\gamma$ ?
 
 - Define $S_A = S_{PBC}$, $S_B = S_{PAC}$, $S_C = S_{PAB}$, then
+
   $$
+
   \alpha = \frac{S_A}{S_A+S_B+S_C},\beta = \frac{S_B}{S_A+S_B+S_C}, \gamma = \frac{S_C}{S_A+S_B+S_C}
+
   $$
 
 Q : Then how to get $S_A, S_B, S_C$ ?

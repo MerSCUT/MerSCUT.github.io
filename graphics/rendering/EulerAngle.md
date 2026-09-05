@@ -21,41 +21,55 @@
 <img src="../assets/licensed-image.jpeg" alt="airplane pitch yaw roll" style="zoom:10%;" />
 
 绕坐标轴旋转变换的矩阵十分简单 :
+
 $$
+
 R_x(\alpha) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos\alpha & -\sin\alpha \\ 0 & \sin\alpha & \cos\alpha \end{bmatrix}
 
 $$
 
 $$
+
 R_y(\beta) = \begin{bmatrix}
 \cos\beta & 0 & \sin\beta \\
 0 & 1 & 0 \\
 -\sin\beta & 0 & \cos\beta
 \end{bmatrix}
+
 $$
 
 $$
+
 R_z(\gamma) = \begin{bmatrix}
 \cos\gamma & -\sin\gamma & 0 \\
 \sin\gamma & \cos\gamma & 0 \\
 0 & 0 & 1
 \end{bmatrix}
+
 $$
 
 我们可以通过上述三种旋转的复合, 来表示 3D 空间中朝任意一个方向的旋转. 
 
 请注意, **矩阵乘法不满足交换律**. 而这里的旋转矩阵也没有交换律的良好性质. 所以旋转的先后次序会影响最终的旋转结果. 一种顺序的定义是 $Z$-$Y$-$X$ 式
+
 $$
+
 R = R_z(\gamma)R_y(\beta)R_{x}(\alpha)
+
 $$
+
 代入并展开 :
+
 $$
+
 R = \begin{bmatrix}
 \cos\gamma\cos\beta & \cos\gamma\sin\beta\sin\alpha - \sin\gamma\cos\alpha & \cos\gamma\sin\beta\cos\alpha + \sin\gamma\sin\alpha \\
 \sin\gamma\cos\beta & \sin\gamma\sin\beta\sin\alpha + \cos\gamma\cos\alpha & \sin\gamma\sin\beta\cos\alpha - \cos\gamma\sin\alpha \\
 -\sin\beta & \cos\beta\sin\alpha & \cos\beta\cos\alpha
 \end{bmatrix}
+
 $$
+
 这就是最终的旋转矩阵.
 
 
@@ -63,21 +77,29 @@ $$
 ## 万向节死锁 Gimbal Lock
 
 令上述矩阵 $R$ 中, $\beta = \pi/2$ :
+
 $$
+
 R = \begin{bmatrix}
 0 & \cos\gamma\sin\alpha - \sin\gamma\cos\alpha & \cos\gamma\cos\alpha + \sin\gamma\sin\alpha \\
 0 & \sin\gamma\sin\alpha + \cos\gamma\cos\alpha & \sin\gamma\cos\alpha - \cos\gamma\sin\alpha \\
 -1 & 0 & 0
 \end{bmatrix}
+
 $$
+
 变形 :
+
 $$
+
 R= \begin{bmatrix}
 0 & \sin(\alpha-\gamma) & \cos(\alpha-\gamma) \\
 0 & \cos(\alpha-\gamma) & -\sin(\alpha-\gamma) \\
 -1 & 0 & 0
 \end{bmatrix}
+
 $$
+
 注意到 :
 
 - 矩阵的值仅与 $\alpha-\gamma$ 这个整体有关系. 只要 $\alpha - \gamma$ 是常数, 无论二者分别是多少, 最终旋转的效果都一样.
@@ -131,9 +153,13 @@ $$
 而欧拉角的定义启发了我们 : **3D 空间中的旋转可以用 $3$ 个相互正交的 2D 平面上的旋转来表示.**
 
 由此, 我们定义包含 3 个复数的**四元数** :
+
 $$
+
 q = w + xi + yj + zk
+
 $$
+
 其中
 
 - $x, y, z, w\in \R$.
@@ -151,17 +177,25 @@ $$
 想要在四元数的语境下讨论它与 3D 点坐标 $P(x,y,z)$ 的乘法, 需要先将 $P$ 映射为四元数.
 
 方法与**齐次坐标**类似, 一个 3D 坐标 对应的四元数是 :
+
 $$
+
 p = 0 + xi + yj + zk = [0, \vec v]
+
 $$
+
 与 $0 + iy$ 被称为**纯虚数**一样, $p$ 也被称为**纯四元数**.
 
 
 
 现在可以看看两个四元数 $q_1 = [w_1, \vec v_1], q_2 = [w_2, \vec v_2] $ 的乘法规则了. 这里不加推导给出 **Grassmann 乘积** 公式 :
+
 $$
+
 q_1q_2 = [w_1 w_2 - \vec{v}_1 \cdot \vec{v}_2, \quad w_1 \vec{v}_2 + w_2 \vec{v}_1 + \vec{v}_1 \times \vec{v}_2]
+
 $$
+
 注意第二项末尾的 $\vec v_1 \times \vec v_2$, 我们知道叉乘没有交换律, 这直接反映了**四元数乘法没有交换律.**
 
 
@@ -185,9 +219,13 @@ $$
 我们可以通过级数定义 $\mathrm e^{\vec u\theta}$, 并依此求得与欧拉公式相似的结论.
 
 这里省略严格叙述. 直接以任意方向(单位向量) $\vec u = u_x i + u_yj + u_z k$ 代替上述 $i$, 代入欧拉公式 :
+
 $$
+
 \mathrm e^{\vec u\theta} = \cos\theta + \vec u \sin\theta
+
 $$
+
 得到四元数空间中的欧拉公式
 
 - 左边 $\mathrm e^{\vec u \theta}$ 的语义为 : 绕 $\vec u$ 旋转 $\theta$ . ($\vec u$ 是旋转平面的法向量)
@@ -204,9 +242,13 @@ $$
 
 
 但是计算后发现, 第一个条件无法保证. 上述结果的常数项不一定为 $0$. 
+
 $$
+
 qp = \left[ -\sin\theta (\mathbf{u} \cdot \mathbf{v}), \quad \cos\theta \mathbf{v} + \sin\theta (\mathbf{u} \times \mathbf{v}) \right]
+
 $$
+
 从中可以发现原因 :
 
 - $\vec u \cdot \vec v$ 不一定为 $0$ $\iff $ 旋转轴 $\vec u$ 不一定与被旋转向量 $\vec v$ 垂直 $\iff $ $\vec v$ 不一定完全落在旋转平面中.
@@ -228,9 +270,13 @@ $$
 我们能不能将上一节中的 $q'$ 拆成两部分, $q_1 $ 和 $q_2$, 使得它们对 $\vec v_{\parallel}$ 的作用互相抵消, 对 $\vec v_{\perp}$ 的作用相互叠加? 
 
 完全可以, 我们引入一步精妙的操作 :
+
 $$
+
 \vec v' = e^{\vec u \cdot \frac\theta2} \cdot \vec v \cdot e^{-\vec u \cdot \frac\theta2}
+
 $$
+
 这个操作完成了上面的两个任务 :
 
 1. 作用于与 $\vec u$ 平行的向量 $\vec v$ 时, 在左右乘的相反作用下, 输出值 $\vec v' = \vec v$ 保持不变.

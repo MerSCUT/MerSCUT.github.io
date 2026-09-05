@@ -27,14 +27,20 @@
 - **Types**: Rotation, Translation, Scale, Shear.
 
 - **Affine Transformation** (Linear Map + Translation):
+
   $$
+
   \begin{bmatrix}x'\\y'\end{bmatrix} = \begin{bmatrix}a_{11} & a_{12} \\ a_{21} & a_{22} \end{bmatrix}\begin{bmatrix}x\\y\end{bmatrix} + \begin{bmatrix}t_x\\t_y\end{bmatrix}
+
   $$
   
 
 - **Homogeneous Matrix Representation**:
+
   $$
+
   \begin{bmatrix}x'\\y' \\ 1\end{bmatrix} = \begin{bmatrix}a_{11} & a_{12} & t_x \\ a_{21} & a_{22} & t_y \\0 & 0 & 1 \end{bmatrix}\begin{bmatrix}x\\y \\ 1\end{bmatrix}
+
   $$
   
 
@@ -74,7 +80,9 @@
      Composed of a translation matrix $T_{view}$ (moving $e$ to origin) and a rotation matrix $R_{view}$ (aligning axes).
 
    $$
+
    M_{view} = R_{view} \cdot T_{view} = \begin{bmatrix}x_{\vec{g}\times \vec{t}} & x_{\vec{t}} & x_{-\vec{g}} &0 \\ y_{\vec{g}\times \vec{t}} & y_{\vec{t}} & y_{-\vec{g}} &0 \\ z_{\vec{g}\times \vec{t}} & z_{\vec{t}} & z_{-\vec{g}} &0 \\ 0 & 0 & 0& 1 \end{bmatrix}\cdot \begin{bmatrix} 1 & 0 & 0 & -e_x \\ 0 & 1  & 0 & -e_y \\ 0 & 0 & 1 & -e_z \\ 0 & 0 & 0 & 1 \end{bmatrix}
+
    $$
 
    
@@ -157,7 +165,9 @@ A local illumination model assuming light consists of three components:
 3. **Specular**: Shininess/Highlights.
 
 $$
+
 L = L_a + L_d + L_s
+
 $$
 
 
@@ -177,9 +187,13 @@ $$
 #### 1. Diffuse Term
 
 - **Characteristic**: View-independent (looks the same from any angle).
+
   $$
+
   L_d = k_d \cdot \frac{I}{r^2} \cdot \max(0, \vec{n}\cdot \vec{l})
+
   $$
+
   Where
 
   - $k_d$: Diffuse coefficient (Surface Color).
@@ -193,7 +207,9 @@ $$
   - $\vec{h} = \text{normalize}(\vec{v} + \vec{l})$
 
   $$
+
   L_s = k_s \cdot \frac{I}{r^2} \cdot \max(0, \vec{n} \cdot \vec{h})^p
+
   $$
 
   Where
@@ -206,7 +222,9 @@ $$
 - **Characteristic**: Constant approximation of global illumination (indirect light).
 
 $$
+
 L_a = k_a \cdot I_a
+
 $$
 
 
@@ -231,7 +249,11 @@ How do we discretize shading application across the mesh?
 Vertex Normal Calculation:
 
 Weighted average of the normals of adjacent faces.
+
 $$
+
 N_v = \frac{\sum_i w_i \vec{n}_i}{\| \sum_i w_i \vec{n}_i\|}
+
 $$
+
 (Where $w_i$ is typically the area of the adjacent triangle $i$).

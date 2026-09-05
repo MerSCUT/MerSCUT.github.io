@@ -288,4 +288,4 @@ Spsc 中插入了一个 `FPlatformMisc::MemoryBarrier()`. 前面提到的专栏�
 `MemoryBarrier` 之后的`OldHead->NextNode = NewNode;` 是在**公布新节点**. 此时这个节点是对消费者可见的. 内存屏障保证了 : 
 
 - 生产者线程中, 在节点公布给消费者之前, 最开始的 `	TNode* NewNode = new TNode(Item);` 已经将数据准备完毕. (注意在生产者单线程中, `new TNode` 和 `OldHead->NextNode` 的读写是没有数据依赖的, 因为 `new` 先分配内存地址, 再执行构造函数. )
-- 
+
