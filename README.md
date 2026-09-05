@@ -1,127 +1,79 @@
-# Hi, I'm Mergic 👋
+# Mer
 
-🎮 Game Engine Developer | Real-time Rendering Enthusiast
+本科在读，主要关注 **游戏引擎、实时渲染与图形技术**。
 
-I am an undergraduate student focusing on **Game Engine, Real-time Rendering and Computer Graphics**.
-
-Currently exploring:
-- Rendering architecture and GPU programming
-- Vulkan-based rendering systems
-- Unreal Engine rendering pipeline
-- Neural compression techniques for game assets
+目前的学习与实践主要围绕 Unreal Engine、C++、Vulkan、Graphics Pipeline，以及神经网络在实时图形与游戏引擎中的应用展开。
 
 ---
 
-## 🛠️ Technical Skills
+## Featured Notes
 
-### Programming Languages
-- C++ (C++17/20)
-- Python
-- C#
-- GLSL / HLSL
+这里整理了一些持续更新的技术笔记与学习总结。
 
-### Graphics & Engine
-- Vulkan
-- OpenGL
-- Unreal Engine 5
-- Physically Based Rendering (PBR)
-- Ray Tracing
-- GPU Programming
+- [Graphics](./graphics/)  
+  实时渲染、Graphics Pipeline、光照、抗锯齿、可见性与 GPU 相关内容。
 
-### Machine Learning
-- PyTorch
-- Neural Compression
-- Computer Vision
+- [Unreal Engine](./unreal/)  
+  UE 渲染架构、RDG、线程模型、资源管理与源码学习记录。
 
-### Tools
-- RenderDoc
-- Visual Studio
-- Git
-- CMake
+- [C++](./cpp/)  
+  C++ 语言机制、并发、内存管理、STL 与工程实践。
+
+- [Systems](./systems/)  
+  操作系统、并发同步、底层机制与系统设计相关内容。
+
+- [Algorithms](./algorithms/)  
+  算法题、数据结构与面试训练记录。
 
 ---
 
-## 🚀 Featured Projects
+## Projects & Practice
 
-### 🔥 Vulkan Real-time PBR Renderer
+### Neural Lightmap Compression
 
-A self-developed real-time rendering framework based on Vulkan.
+在 Unreal Engine 中进行 TOD Lightmap 神经网络压缩与运行时重建相关实践，涉及：
 
-Features:
-- Vulkan rendering pipeline from scratch
-- RAII-based GPU resource management
-- Forward PBR rendering
-- glTF/GLB asset loading
-- Descriptor set abstraction
-- Shader pipeline management
+- PyTorch 模型训练与压缩方案验证
+- Unreal Engine 渲染源码与 Lightmap Pipeline
+- NNE / RDG Runtime 集成
+- GPU Resource 调度与性能优化
+- Android 真机部署与性能分析
 
-Tech:
-`C++17` `Vulkan` `GLSL`
+### CPU Path Tracing Renderer
 
-Repository:
-👉 [Vulkan Renderer](your_link)
+使用 C++ 实现的离线 Path Tracing Renderer，主要包括：
 
----
+- PBR 材质与路径追踪
+- BVH 加速结构
+- 光线求交与采样
+- 渲染性能优化
 
-### 🌌 CPU Path Tracing Renderer
+### Vulkan Rendering Practice
 
-An offline physically based renderer implemented in C++.
+基于 Vulkan 进行现代实时渲染 Pipeline 的学习与实践，关注：
 
-Features:
-- Monte Carlo path tracing
-- PBR material system
-- BVH acceleration structure
-- Importance sampling
-- Performance optimization
-
-Tech:
-`C++` `Ray Tracing`
-
-Repository:
-👉 [Path Tracer](your_link)
+- Vulkan 显式资源管理
+- Descriptor / Command Buffer / Synchronization
+- Render Pass 与 Pipeline
+- 实时渲染架构设计
 
 ---
 
-## 💼 Experience
+## Current Focus
 
-### Tencent TiMi J3 Game Engine Intern
-`2026.06 - Present`
+近期主要关注：
 
-Topic:
-**Neural Compression for TOD Lightmap**
-
-Work:
-- Investigated neural compression techniques for dynamic lighting assets.
-- Modified Unreal Engine GPU Lightmass pipeline.
-- Explored neural reconstruction methods based on NDGI.
-- Developed experiments with PyTorch.
-
-Tech:
-`UE5` `C++` `PyTorch`
+- Unreal Engine 渲染源码
+- Graphics Pipeline 与 GPU 执行模型
+- Vulkan 与现代图形 API
+- Shader 与实时渲染
+- 游戏引擎中的多线程与资源管理
+- Neural Rendering / Neural Compression
 
 ---
 
-## 📚 Learning
+## About
 
-Currently studying:
-- Unreal Engine Rendering Architecture
-- GPU Driven Rendering
-- Advanced Real-time Rendering
-- Modern C++ Design
+我希望从底层机制和工程实践两个角度理解游戏引擎与实时渲染，并持续把学习过程整理成可复用的技术笔记。
 
-References:
-- *Physically Based Rendering: From Theory to Implementation*
-- *Real-Time Rendering*
-- Games101 / Games202
-
-
----
-
-## 📫 Contact
-
-Email:
-wjqscut@example.com
-
----
-
-⭐ Thanks for visiting my profile!
+GitHub: [MerSCUT](https://github.com/MerSCUT)
