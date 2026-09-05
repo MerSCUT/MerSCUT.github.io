@@ -71,7 +71,7 @@
 
 - NNE : Neural Network Engine (Beta) 概述
   - [官方文档-NNE](https://dev.epicgames.com/documentation/unreal-engine/neural-network-engine-in-unreal-engine)
-  - [GPT源码总结笔记](../../../posts/graphics/unreal/ndgi/nne-gpu-rdg-architecture.md)
+  - [GPT源码总结笔记](../ndgi/nne-gpu-rdg-architecture.html)
 
 - Render Pass in UE : UE 如何组织 各种 Render Pass ?
   - [Unreal’s Rendering Passes](https://unrealartoptimization.github.io/book/profiling/passes/#basepass)
