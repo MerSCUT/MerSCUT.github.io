@@ -8,7 +8,7 @@
 
 在讲具体的对象之前, 跟一遍 Vulkan Tutorial 后, 能发现 Vulkan 对象的几种获取模版 :
 
-1. 基于__描述符__显式创建 : 创建绝大多数**逻辑设备层**的Vulkan对象.
+1. 基于**描述符**显式创建 : 创建绝大多数**逻辑设备层**的Vulkan对象.
    1. 声明并填充一个 以 `CreateInfo` 结尾的结构体, 并详细配置其中的各种参数.
    2. 调用 `vkCreate` 前缀的函数, 传入上述结构体, 以及用于接收结果的句柄指针.
    3. 该类对象通常需要开发者手动调用 `vkDestroy` 来析构.
@@ -17,14 +17,14 @@
    2. 然后在获取数量后, 为其分配内存, 通常使用 `std::vector<...> objects(count);`, 随后再次调用 `vkEnumerate`/`vkGet`, 将存放数据的指针设为 `objects.data()` 来接收最终的数据.
    3. 通常不需要手动析构 `objects`. 它们的生命周期要么与父对象绑定, 要么本就是物理底层存在的对象.
 3. Object Pool 分配 : 最典型的是 `CommandBuffer` 和 `CommandPool` . 一般说来, 渲染循环中会被高频创建、重置或数量庞大的轻量级对象都会要求先创建 Pool, 并通过 Pool 分配具体对象.
-4. 基于__继承, 缓存__创建 : 复用已有 Pipeline 中的部分子对象, 避免切换管线或上下文所带来的巨大开销.
+4. 基于**继承, 缓存**创建 : 复用已有 Pipeline 中的部分子对象, 避免切换管线或上下文所带来的巨大开销.
 5. 辅助结构 : 这一类对象通常不是完整的 Vulkan 对象, 而是创建完整对象的辅助结构. 
    1. 只需要创建 `vk...Description` 结构, 并填入对应信息. 它们会在最后传入完整的 Vulkan 对象的信息中. 
       1. 一个例子是 `Attachment` 和 `Subpass` 会以这种方式创建, 并传入 `RenderPass` 的 `CreateInfo` 中.
 
 ### Instance
 
-这是基于 Vulkan 的应用程序的__基底__. 
+这是基于 Vulkan 的应用程序的**基底**. 
 
 - 创建 : 基于描述符显示创建
 
@@ -37,7 +37,7 @@ Instance 是一个 Vulkan 应用程序实例对象. 后面的所有对象创建�
 Surface 创建在 Instance 对象之上. 
 
 - 创建 : 基于描述符的显式创建. 
-- __GLFW 提供了更便捷的创建方式__. `glfwCreateWindowSurface(instance, window, nullptr, &surface)`
+- **GLFW 提供了更便捷的创建方式**. `glfwCreateWindowSurface(instance, window, nullptr, &surface)`
 
 它是 Vulkan 对各种 OS 的窗口的抽象.  一个 Vulkan 程序不一定需要将结果显示在窗口中, 所以关于 Surface 的功能都来源于 Khronos Group 扩展, 其 相关 API 都以 `KHR` 结尾.
 
@@ -67,19 +67,19 @@ Physical Device 描述系统里实际存在的 **GPU 硬件**. 虽然它是通�
 
 ### (Logical) Device
 
-Vulkan 抽象出 Logical Device（逻辑设备）对象 , 来保证应用程序__只能通过 LogicalDevice 提供的接口和上下文, 访问其申请的QueueFamily__.
+Vulkan 抽象出 Logical Device（逻辑设备）对象 , 来保证应用程序**只能通过 LogicalDevice 提供的接口和上下文, 访问其申请的QueueFamily**.
 
 - 创建 : 基于描述符的显式创建. 
 
 创建 Logical Device 描述符中所依赖的对象是包括 `physicalDevice, QueueFamilyIndices` (后者是自定义结构体, 用以对 QueueFamily 需求的封装. ) 
 
-`CreateInfo` 中还包括 __Device 所支持的 Extension 和 Layer__.
+`CreateInfo` 中还包括 **Device 所支持的 Extension 和 Layer**.
 
 
 
 接上讨论 : 我们的应用程序大概率**只需要使用其中一部分QueueFamily的能力**。
 
-通过抽象出 LogicalDevice 的方式, 多个应用程序 (或者一个应用程序的多个操作) 可以__异步使用同一个 PhysicalDevice 的不同 流水线簇 QueueFamily.__ 尽可能榨干 GPU 的并发算力.
+通过抽象出 LogicalDevice 的方式, 多个应用程序 (或者一个应用程序的多个操作) 可以**异步使用同一个 PhysicalDevice 的不同 流水线簇 QueueFamily.** 尽可能榨干 GPU 的并发算力.
 
 
 
@@ -95,9 +95,9 @@ Vulkan 抽象出 Logical Device（逻辑设备）对象 , 来保证应用程序_
 
 简单来说,
 
-- `Surface`  __决定画在哪__. (窗口显示在屏幕上的哪)
-- `PhysicalDevice` __决定有哪些画画的能力__ (支持的画画格式, 画画方式)
-- `SwapChain`  __决定怎么画__. (怎么画上窗口)
+- `Surface`  **决定画在哪**. (窗口显示在屏幕上的哪)
+- `PhysicalDevice` **决定有哪些画画的能力** (支持的画画格式, 画画方式)
+- `SwapChain`  **决定怎么画**. (怎么画上窗口)
 
 
 
@@ -107,11 +107,11 @@ Vulkan 抽象出 Logical Device（逻辑设备）对象 , 来保证应用程序_
 
 首先来看看依赖关系. 交换链依赖于 `Surface` 和 `PhysicalDevice`.
 
--  `Surface` 封装了不同操作系统的窗口, 其背后的变量是__操作系统__, 体现的是__平台差异__
+-  `Surface` 封装了不同操作系统的窗口, 其背后的变量是**操作系统**, 体现的是**平台差异**
 
-- `PhysicalDevice` 是物理设备, 其背后封装的变量是 __GPU 硬件__, 体现__硬件差异__.
+- `PhysicalDevice` 是物理设备, 其背后封装的变量是 **GPU 硬件**, 体现**硬件差异**.
 
-在构建 `SwapChain` 的 `CreateInfo` 时, 我们需要知道当前系统的 `(Surface, PhysicalDevice)` 组合能支持的__操作__有哪些. 这些都是通过 `vkGetPhysicalDeviceSurfaceCapabilitiesKHR` 等 API 双重查询来获得的.
+在构建 `SwapChain` 的 `CreateInfo` 时, 我们需要知道当前系统的 `(Surface, PhysicalDevice)` 组合能支持的**操作**有哪些. 这些都是通过 `vkGetPhysicalDeviceSurfaceCapabilitiesKHR` 等 API 双重查询来获得的.
 
 具体的核心操作有三种 :
 
@@ -121,7 +121,7 @@ Vulkan 抽象出 Logical Device（逻辑设备）对象 , 来保证应用程序_
   - 是否支持画面预旋转（比如手机横竖屏切换 `supportedTransforms`）
   - 是否支持透明窗口（`compositeAlpha`）
 - Format : 像素在内存中的排列方式. (`VK_FORMAT_B8G8R8A8_SRGB`)
-  - 按照什么格式__排列内存__. 色彩空间 是什么.
+  - 按照什么格式**排列内存**. 色彩空间 是什么.
 - PresentMode : 如何放置画面到窗口上. 以下是几种取值
   - IMMEDIATE : 立即模式, 通常会造成严重撕裂
   - FIFO：传统的 VSync 垂直同步（无撕裂，但如果渲染太慢会导致卡顿）。
@@ -156,7 +156,7 @@ Vulkan 抽象出 Logical Device（逻辑设备）对象 , 来保证应用程序_
 
 ### Image / Image View
 
-SwapChain 对象在 VRAM 上分配了显存来存储图像数据. 这块内存可以视为__图像数组__, Vulkan 使用 `VkImage` 去描述其中存储的每一章图像.
+SwapChain 对象在 VRAM 上分配了显存来存储图像数据. 这块内存可以视为**图像数组**, Vulkan 使用 `VkImage` 去描述其中存储的每一章图像.
 
 - 创建 :  `SwapChain` 被显式创建后, `VkImage` 自动生成. 通过双重查询获得.
 
@@ -184,9 +184,9 @@ SwapChain 对象在 VRAM 上分配了显存来存储图像数据. 这块内存�
 
 实际渲染时, 管线需要以某种方式, 从 SwapChain 申请一张空闲的 `VkImage` 来作为渲染结果颜色图的输出. 
 
-在渲染过程中, __管线完全不知道 SwapChain 给了哪一张具体的 VkImage__ (它不会知道 得到的 `VkImage` 首地址), 取而代之, 它直接在某个抽象的数据结构上作画. 这个结构就是 `Attachment`, 它的作用就是**"接受得到的`VkImage`".**
+在渲染过程中, **管线完全不知道 SwapChain 给了哪一张具体的 VkImage** (它不会知道 得到的 `VkImage` 首地址), 取而代之, 它直接在某个抽象的数据结构上作画. 这个结构就是 `Attachment`, 它的作用就是**"接受得到的`VkImage`".**
 
-这是 Vulkan 的解耦式设计. `Attachment` 像是一个插槽一样, 可以将任何符合的`VkImage`插入其中. Pipeline 只管对着 `Attachment` 画就好了. 底层的逻辑会自动处理__实际写到哪个地址中去__.
+这是 Vulkan 的解耦式设计. `Attachment` 像是一个插槽一样, 可以将任何符合的`VkImage`插入其中. Pipeline 只管对着 `Attachment` 画就好了. 底层的逻辑会自动处理**实际写到哪个地址中去**.
 
 Attachment 的定义, 可以使用 `VkAttachmentDescription` 结构体描述. 它包括以下成员
 
@@ -210,7 +210,7 @@ Attachment 的定义, 可以使用 `VkAttachmentDescription` 结构体描述. �
 
 `RenderPass` 是创建 `GraphicsPipeline` 时需要传入的信息之一. 
 
-一个 `RenderPass` 中可以包含多个 Attachment, 是一份管线与硬件之间非常严格的__契约__. 管线会根据这个契约, 配置好底层的硬件资源.
+一个 `RenderPass` 中可以包含多个 Attachment, 是一份管线与硬件之间非常严格的**契约**. 管线会根据这个契约, 配置好底层的硬件资源.
 
 如果传入的 `VkImage` 在**数量(Attachment 的个数)和格式要求(各个Attachment的要求)**上, 没有办法匹配上 `RenderPass` 中定义的所有 Attachment 插槽, 就会导致严重的渲染崩溃.
 
@@ -226,7 +226,7 @@ Subpass 是 Vulkan 引入的另一个机制. 从名称上看, 它与 Render Pass
 
 我们前面说, Render Pass 除了接受 Attachment 清单以外, 另一个需要接受的对象就是 Subpass 了.
 
-Subpass 所带来的性能提升可以从一个最典型的例子看出 : __延迟渲染__. 这种渲染方式走了两遍管线 , 分别执行了不同的任务 :
+Subpass 所带来的性能提升可以从一个最典型的例子看出 : **延迟渲染**. 这种渲染方式走了两遍管线 , 分别执行了不同的任务 :
 
 1. 几何处理阶段 : 记录每个像素的几何信息 (法线, 颜色等).
 2. 光照阶段 : 考虑所有光照, 材质, 纹理等信息 以及前一阶段记录的几何信息, 计算出每个像素的真正颜色.
@@ -342,7 +342,7 @@ createInfo.pAttachments = attachments;
 // Create FrameBuffer
 ```
 
-而 `VkImageView` 数组 被命名为 attachments, 这是因为 FrameBuffer __将严格按照其排列顺序__ 插入到 RenderPass 中的 attachment. 在这个意义下, `VkImageView` 与 `VkAttachmentDescription` 是一一对应的. 
+而 `VkImageView` 数组 被命名为 attachments, 这是因为 FrameBuffer **将严格按照其排列顺序** 插入到 RenderPass 中的 attachment. 在这个意义下, `VkImageView` 与 `VkAttachmentDescription` 是一一对应的. 
 
 传入的 `RenderPass` 对象, 会作为 FrameBuffer 的 "出厂设置". 其中的信息可以帮助驱动程序提前准备好 GPU 中的硬件状态 和配置, 使得运行时的效率最大化. 在运行时, 虽然 Vulkan 不会检查, 但是我们必须**确保  FrameBuffer 与 Renderpass 是兼容的(Compatible).** 
 
@@ -359,17 +359,17 @@ Vulkan Tutorial 中创建 Framebuffer 的代码写得较为简单, 从 SwapChain
 
 ### 关于图片信息的解耦
 
-我们已经接触过几个与`VkImage` 相关的对象了. 它们在创建时, 对图片的__格式__, 图片的__尺寸__信息有不同的要求.
+我们已经接触过几个与`VkImage` 相关的对象了. 它们在创建时, 对图片的**格式**, 图片的**尺寸**信息有不同的要求.
 
 - `VkImageView`  : 创建需要 `format`, 同时需要传入的 `VkImage` 结构已经包含宽高 (`width`, `height`)信息 (因此不需要重复写).
 - `Attachment` : 只需要 `format`, 完全不需要宽高信息.
 - `FrameBuffer` : 完整的创建结构体还包含宽高信息, 但没有 `format`.
 
-Vulkan 将图片的尺寸与图片的格式__解耦__了. 核心原因是, **玩家会拖拽改变窗口大小.** 所以, Vulkan 需要将尺寸剥离出图片的具体存储方式, 也剥离出 RenderPass, GraphicsPipeline 等重构开销巨大的对象.
+Vulkan 将图片的尺寸与图片的格式**解耦**了. 核心原因是, **玩家会拖拽改变窗口大小.** 所以, Vulkan 需要将尺寸剥离出图片的具体存储方式, 也剥离出 RenderPass, GraphicsPipeline 等重构开销巨大的对象.
 
 也因此, 如果回看 RenderPass 和 Graphics Pipeline 的创建过程, 本身并没有描述窗口尺寸的代码. 
 
-尺寸只有在 `FrameBuffer` 将 `VkImageView` 递交给 RenderPass 时, 才确定下来. 玩家改变窗口大小时, 只需要重新构建 SwapChain, VkImageView 和 Framebuffer 对象就好了. 这些相比于前面两个, 开销小非常多. 当然, 由于 Graphics Pipeline 中包含 Viewport 的属性, 必须将其设为__Dynamic State__, 否则当玩家拖拽改变 Viewport 时, 管线依然需要销毁后重新构建.
+尺寸只有在 `FrameBuffer` 将 `VkImageView` 递交给 RenderPass 时, 才确定下来. 玩家改变窗口大小时, 只需要重新构建 SwapChain, VkImageView 和 Framebuffer 对象就好了. 这些相比于前面两个, 开销小非常多. 当然, 由于 Graphics Pipeline 中包含 Viewport 的属性, 必须将其设为**Dynamic State**, 否则当玩家拖拽改变 Viewport 时, 管线依然需要销毁后重新构建.
 
 
 

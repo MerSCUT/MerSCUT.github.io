@@ -87,7 +87,7 @@ Pipeline (Every Frame) :
          $$
          Translation, then Scale.
 
-      2. __How to get $l,r,b,t$ ?__ From __Aspect_ratio__ and __eye_fovY__ (Known)
+      2. **How to get $l,r,b,t$ ?** From **Aspect_ratio** and **eye_fovY** (Known)
 
          1. Assumption : $l = -r, b = -t$
          2. $aspect = \dfrac{r}{t}$.
@@ -106,11 +106,11 @@ Pipeline (Every Frame) :
 
 ### Aliasing Problem (Jaggies)
 
-Cause : __Undersampling__
+Cause : **Undersampling**
 
 
 
-__Anti-Aliasing__ : 
+**Anti-Aliasing** : 
 
 - Improve resolution; (Unrealistic)
 - **Super**-**Sampling**
@@ -156,29 +156,29 @@ It's a local shading model. There are several (**Known**) vectors for calculatio
 - $\vec v$ : Viewer direction.
 - $\vec l$  : Light Direction. 
 - $\vec n$ : Normal vector of shading points.
-  - __Above vectors are all normalized__ (For they only sign the direction)
+  - **Above vectors are all normalized** (For they only sign the direction)
 - light intensity $I $.
 - Viewer Point, Light Source Position, Shading point's position.
 
 And some laws for fomula :
 
-- __Lambert's cosine law__
+- **Lambert's cosine law**
   $$
   \cos \theta = \vec n \cdot \vec l
   $$
   It's used in diffuse term.
 
-- __Light Falloff__ : (Law of Conservation of Energy)
+- **Light Falloff** : (Law of Conservation of Energy)
 
   Assume the light source is point.
 
-  __The "Light Energy" on each spherical shell is same__.
+  **The "Light Energy" on each spherical shell is same**.
 
   If light intensity $I$ for unit distance $1$, then $I/r^2$  for distance $r^2$.
 
 Figure out each term of Blinn-Phong Shading model.
 
-1. __Diffuse Term__ : 
+1. **Diffuse Term** : 
 
    Features :
 
@@ -193,7 +193,7 @@ Figure out each term of Blinn-Phong Shading model.
    - $k_d$ is diffuse coefficient;
    - $r$ is distance between light source and shading point.
 
-2. __Specular Highlight Term__ :
+2. **Specular Highlight Term** :
 
    Features :
 
@@ -209,7 +209,7 @@ Figure out each term of Blinn-Phong Shading model.
    - $p$ is a constant  to control the reflection range. Usually $100$ to $200$.
    - $k_s$ is specular coefficient.
 
-3. __Ambient Term__ :
+3. **Ambient Term** :
 
    Features : Light absorbed from environment is same. (Approximation)
    $$
@@ -226,30 +226,30 @@ Figure out each term of Blinn-Phong Shading model.
 
 How do we discrete the object into shading points (Then apply Blinn-Phong model ?)
 
-> Usually, the information of __vertices__ (color, position, normal...) is given.
+> Usually, the information of **vertices** (color, position, normal...) is given.
 
-- __Flat shading__ : Shade __each triangle__ 
+- **Flat shading** : Shade **each triangle** 
   - Seen a triangle (and choose a representative point, e.g. centre of gravity) as a "shading point".
-  - Triangle is a __flat__ surface, which has a normal $\vec n$. 
-- __Gouraud shading__ : Shade each __vertex__.
+  - Triangle is a **flat** surface, which has a normal $\vec n$. 
+- **Gouraud shading** : Shade each **vertex**.
   - **Each vertex is a shading point.** 
   - Color of points inside the triangle will be calculated by interpolation.
     - Need **BaryCentric** **Coordinates**.
-- __Phong Shading__ : Shade each __pixel__.
+- **Phong Shading** : Shade each **pixel**.
   - The centre of a pixel is a shading point.
-  - During **Rasterization**, use the normal of vertex to __interpolate__ **the normal vector** (need to be normalized) of shading point. 
+  - During **Rasterization**, use the normal of vertex to **interpolate** **the normal vector** (need to be normalized) of shading point. 
   - Then use Blinn-Phong model to calculate the color of shading point.
   - *Most commonly used; The best effect/result of shading (among these 3 frequencies); The highest computational complexity.
 
 
 
-Q : How to define the __normal of vertex__ ?
+Q : How to define the **normal of vertex** ?
 
 A : The average normal vector of adjacent triangles of vertex.
 $$
 \vec n_v = \frac{\sum_i \vec n_i}{\| \sum_i \vec n_i\|}
 $$
-$\vec n_i$ is the normal of  $i$-th adjacent traignel. Further more, it could be __weighted__ form.
+$\vec n_i$ is the normal of  $i$-th adjacent traignel. Further more, it could be **weighted** form.
 $$
 \vec n_v = \frac{\sum_i w_i\vec n_i}{\| \sum_i w_i \vec n_i\|}
 $$

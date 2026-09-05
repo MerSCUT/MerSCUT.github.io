@@ -203,7 +203,7 @@ descriptorSet
 └── binding 1 → 尚未写入
 ```
 
-于是接下来就是 __写入空的 DescriptorSet__. 所有写入的信息准备到若干个 `BufferInfo`/`SamplerInfo` 等等, 传入 `VkWriteDescriptorSet`. 最终通过录制命令 `vkUpdateDescriptorSets` 来实现写入.
+于是接下来就是 **写入空的 DescriptorSet**. 所有写入的信息准备到若干个 `BufferInfo`/`SamplerInfo` 等等, 传入 `VkWriteDescriptorSet`. 最终通过录制命令 `vkUpdateDescriptorSets` 来实现写入.
 
 ```C++
 std::array<VkWriteDescriptorSet, 2> writes{};
@@ -325,7 +325,7 @@ Present Queue
 >
 > 而是 :
 >
-> - SwapChain 直接向 CPU 提供下一张空闲的图片 Index, 而__不管这张空闲图片是否仍然在被 Present Queue, 显示系统扫描__.
+> - SwapChain 直接向 CPU 提供下一张空闲的图片 Index, 而**不管这张空闲图片是否仍然在被 Present Queue, 显示系统扫描**.
 > - CPU 在获取 index 以后立马进入下一步 :  Update Uniform Buffers 与 Record Command Buffer
 
 所以, 这个信号量的同步机制与 CPU 没有关系, 仅仅是由 CPU 创建了这个信号量, 传递给了触发者 vkAcquireNextImageKHR. 而 等待者 是执行 Command 的 GPU Graphics queue, 这个信号量会在 submitInfo 中提供, 告知 Graphics queue 等待它被触发后再执行写入 VkImage 的命令.
@@ -396,7 +396,7 @@ Fence 归属 FrameContext.
 2. 如何告诉 CPU 等待 Fence ?
    - 在 `vkWaitForFences` 中传入Fence
 
-注 : Fence 在 signaled 后, 需要手动 Reset. 项目的代码的方案是__尽可能晚 reset__, 直到 `vkQueueSubmit` 前才重置. 
+注 : Fence 在 signaled 后, 需要手动 Reset. 项目的代码的方案是**尽可能晚 reset**, 直到 `vkQueueSubmit` 前才重置. 
 
 - 不这么做, 在 waitFence 被释放后立刻 reset 会怎样 ?  如果在 QueueSubmit 前的录制指令/数据准备阶段抛出了异常, 在处理异常回来后, 就没有任何线程能够再将 Fence 从 unsignaled -> signaled, CPU 将永远阻塞在 WaitFence.
 

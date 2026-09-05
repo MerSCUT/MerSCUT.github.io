@@ -2,14 +2,14 @@
 
 [参考教程](https://blog.csdn.net/qq_38350702/article/details/123215310)
 
-PPM 通过 RGB 三种颜色显现图像, 也称为__pixmap__.
+PPM 通过 RGB 三种颜色显现图像, 也称为**pixmap**.
 
 另外两个类似的文件是 PGM, PBM. 
 
-这些文件开头都通过__2个字节__ (Magic number) 表明
+这些文件开头都通过**2个字节** (Magic number) 表明
 
-- __文件格式类型__ (PGM / PBM / PPM)
-- __编码方式__ (P1, P2, P3, P4, P5, P6)
+- **文件格式类型** (PGM / PBM / PPM)
+- **编码方式** (P1, P2, P3, P4, P5, P6)
 
 其中, P3 和 P6 指明的是 PPM 格式文件, 前者的编码方式是 ASCII, 适合人类阅读. 后者的编码方式是二进制 binary, 占用的存储空间更少.
 
@@ -29,7 +29,7 @@ PPM 通过 RGB 三种颜色显现图像, 也称为__pixmap__.
 
 WSL2 + Vscode 开发环境下查看 PPM 文件, 需要安装扩展插件
 
-1. __PBM/PPM/PGM Viewer for Visual Studio Code__
+1. **PBM/PPM/PGM Viewer for Visual Studio Code**
 
 然后打开 .ppm 文件就可以显示图像了
 

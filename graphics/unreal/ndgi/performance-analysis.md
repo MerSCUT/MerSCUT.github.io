@@ -55,7 +55,7 @@
 
 由此, 回到源码上发现 : 由于一张 4096 * 2048 的 Atlas 会被分别打包为多个 128 * 128 的 batch,  而一个 NDGI 的 MLP Decoder, 被打包为 ModelInstance 对象后, 每一个 batch 都会执行一次 EnqueueRDG. 
 
-根据源码猜测 : 官方提供的 NNE 逻辑并没有考虑过 1 Model 在 1帧以内 执行多次 Enqueue 的情形, 所以在 Enqueue 函数内部, Model 会为中间计算结果分配 CreateBuffer, 而没有执行任何的 __共享 Buffer / 缓存检查__ 措施. 这就是 Allocate 数量如此夸张的原因.
+根据源码猜测 : 官方提供的 NNE 逻辑并没有考虑过 1 Model 在 1帧以内 执行多次 Enqueue 的情形, 所以在 Enqueue 函数内部, Model 会为中间计算结果分配 CreateBuffer, 而没有执行任何的 **共享 Buffer / 缓存检查** 措施. 这就是 Allocate 数量如此夸张的原因.
 
 修正这一点需要深入引擎的 NNE 层, 对 IModelInstance::EnqueueRDG 的 Buffer 分配策略进行调整. 实际中使用了最小侵入改动, 在 IModelInstance 中增加了两个虚函数 Begin / EndBatchSession, 进行共享 Buffer 的分配和释放. 而 EnqueueRDG 将改为使用这些共享 Buffer. 
 

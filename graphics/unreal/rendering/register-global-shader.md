@@ -49,7 +49,7 @@ END_SHADER_PARAMETER_STRUCT()
 最核心的成员已经完成. 同时, 也可以在类内添加一些可选的函数, 告诉 UE 在哪些平台才需要编译这个 Shader. 
 
 - `ShouldCompilePermutation` : 返回 `true` 则为这个 Platform + Permutation 编译 Shader。否则不编译, 不放入 Shader Map
-- `ModifyCompilationEnvironment` : 负责在 __决定需要编译后__, 修改编译环境. 在这里, 它的作用是设置 HLSL 宏 (NDGI_LIGHTMAP_COPY_THREADGRUP_SIZE)
+- `ModifyCompilationEnvironment` : 负责在 **决定需要编译后**, 修改编译环境. 在这里, 它的作用是设置 HLSL 宏 (NDGI_LIGHTMAP_COPY_THREADGRUP_SIZE)
 
 ```C++
 static bool ShouldCompilePermutation(const FGlobalShaderPermutationParameters& Parameters)
@@ -70,7 +70,7 @@ static void ModifyCompilationEnvironment(
 }
 ```
 
-该函数是静态方法, 不能声明为虚函数. 所以它实现选项扩展的原理是 __子类声明同名函数, 会隐藏父类实现__. 当访问 `MyCS::ShouldCOmpilePermutation` 时, 
+该函数是静态方法, 不能声明为虚函数. 所以它实现选项扩展的原理是 **子类声明同名函数, 会隐藏父类实现**. 当访问 `MyCS::ShouldCOmpilePermutation` 时, 
 
 - 若类中有额外定义同名函数, 则正常使用子类版本; 
 - 若没有, 则从子类访问该函数会调用父类的版本;

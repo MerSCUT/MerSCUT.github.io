@@ -6,22 +6,22 @@
 
 ## Architecture
 
-设计模式是有关__代码组织Organizing__而不是__写具体代码Coding__的艺术. 
+设计模式是有关**代码组织Organizing**而不是**写具体代码Coding**的艺术. 
 
 而架构 Architecture 是与设计模式关联最强的概念.
 
 ### What is Software Architecture ?
 
-作者分几个方面它对于__软件架构__好坏的判断标准. 第一个 : 
+作者分几个方面它对于**软件架构**好坏的判断标准. 第一个 : 
 
 > The first key piece is that **architecture is about change**  
 
 当我们需要修改代码时, 我们只需要动其中很小的一部分. 
 
-修改软件代码的前提是__理解架构__. 所以代码各部分功能的__解耦Decoupling__十分重要.
+修改软件代码的前提是**理解架构**. 所以代码各部分功能的**解耦Decoupling**十分重要.
 
 - 解耦性强的代码, 开发者修改时不需要修改太多部分. 
-- 项目交接时, 下一个人能快速__理解并修改__代码.
+- 项目交接时, 下一个人能快速**理解并修改**代码.
 
 解耦的定义十分多, 作者的定义十分精辟 : 
 
@@ -41,18 +41,18 @@ Decoupled 代码, 只需要修改你真的需要修改的部分, 而不必强行
 
 解耦性, 抽象程度高的架构让人们感到兴奋. 但是天下没有免费的午餐 free lunch.
 
-- 你需要在整个开发周期中的数千次代码修改中, __保持架构的优美和秩序__. 
+- 你需要在整个开发周期中的数千次代码修改中, **保持架构的优美和秩序**. 
 
 > You have to take great care to both **organize the code well** and **keep it** **organized** throughout the thousands of little changes that make up a development cycle.
 
-这其实完全将任务交给了__架构设计__上. 设计师需要精心考虑每一处代码是否需要添加一层抽象. 这是在做__预测 Predicting__.  赌这里以后需要灵活性 Flexibility.
+这其实完全将任务交给了**架构设计**上. 设计师需要精心考虑每一处代码是否需要添加一层抽象. 这是在做**预测 Predicting**.  赌这里以后需要灵活性 Flexibility.
 
 - Good Predicting : 未来的开发中真的用到了这层抽象, 良好的解耦提高了代码的可读性和维护效率.
 - Bad Predicting : 冗余的抽象反而成为程序理解, 维护的额外负担. 
 
 > You’ve got interfaces and abstractions everywhere. Plug-in systems, abstract base classes, virtual methods galore, and all sorts of extension points.
 
-在 Debug 阶段, 你需要跨越重重的接口封装, 才能找到真的在__干活__的代码 (real code that does something), 并从中分析潜在的 bug.
+在 Debug 阶段, 你需要跨越重重的接口封装, 才能找到真的在**干活**的代码 (real code that does something), 并从中分析潜在的 bug.
 
 
 
@@ -63,7 +63,7 @@ Decoupled 代码, 只需要修改你真的需要修改的部分, 而不必强行
 - Virtual Function
 - Pointers (jump)
 
-> 作者提到 Template metaprogramming 是 C++ 中一个不会损害性能的设计. 因为它的逻辑运行在__编译期__.
+> 作者提到 Template metaprogramming 是 C++ 中一个不会损害性能的设计. 因为它的逻辑运行在**编译期**.
 
 Flexibility 和 Performance 是一个 trade-off. 
 
@@ -87,15 +87,15 @@ Prototyping (原型) : 只能完成某个简单点子的简单代码. 真正落�
 2. Fast Performance : 程序运行时更快.
 3. Get today's features done quickly.
 
-作者说这三者实际上都是关于__速度__的平衡 : 长期开发的速度, 程序执行速度, 短期开发速度.
+作者说这三者实际上都是关于**速度**的平衡 : 长期开发的速度, 程序执行速度, 短期开发速度.
 
 
 
 ## Some Suggestions
 
 1. 除非你十分自信某处需要灵活性, 否则不要花费太多时间在设计抽象和解耦上.
-2. 整个设计周期中, 考虑性能因素. 但是不要提前考虑那些__基于某种假设__的性能优化方法上. 否则这会锁死代码.
-3. 平衡__探索游戏设计空间__和__收拾烂摊子__.
+2. 整个设计周期中, 考虑性能因素. 但是不要提前考虑那些**基于某种假设**的性能优化方法上. 否则这会锁死代码.
+3. 平衡**探索游戏设计空间**和**收拾烂摊子**.
 4. 若某段代码是注定被抛弃的, 就不要写得太完美.
 5. If you want to make something fun, have fun making it.
 
@@ -111,7 +111,7 @@ Prototyping (原型) : 只能完成某个简单点子的简单代码. 真正落�
 
 更具体一点, it's a method call wrapped in an object. 
 
-将概念变为数据, 也就是__一个对象__. 并将方法存储于其中.
+将概念变为数据, 也就是**一个对象**. 并将方法存储于其中.
 
 
 

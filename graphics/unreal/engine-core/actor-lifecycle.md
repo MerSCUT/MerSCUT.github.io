@@ -41,16 +41,16 @@ void AActor::BeginPlay()
 从源码我们可以看到一些信息 :
 
 - `Tick` 函数是一个**十分关键的函数**. 它是每一帧运行一次的函数.
-- 一个 Actor 执行 BeginPlay 的逻辑中, 会将其__所有挂载的组件也 BeginPlay__. (包括将它们的 Tick 函数注册)
--  `GetAutoDestroyWhenFinished()` 的部分与引擎的__自动销毁子系统__有关系.
+- 一个 Actor 执行 BeginPlay 的逻辑中, 会将其**所有挂载的组件也 BeginPlay**. (包括将它们的 Tick 函数注册)
+-  `GetAutoDestroyWhenFinished()` 的部分与引擎的**自动销毁子系统**有关系.
   - 当属性被设置为自动销毁时, 该 Actor 会将自己注册到 World 的自动销毁子系统中, 由系统统一回收.
-- `ReceiveBeginPlay();` 是 C++ 与蓝图连接的桥梁. 它会__触发蓝图系统__中的__Event BeginPlay__.
+- `ReceiveBeginPlay();` 是 C++ 与蓝图连接的桥梁. 它会**触发蓝图系统**中的**Event BeginPlay**.
 - `ActorHasBegunPlay = EActorBeginPlayState::HasBegunPlay;` 将 Actor 的状态机属性设置为完成 BeginPlay.
 
 当继承 `AActor` 类时, 要求重写 `BeginPlay()`. 而重写的函数中第一行要求必须是 `Super::BeginPlay()`. (Super 是 UE 定义的类型别名, 等价于父类)
 
 ##  About `AActor::Tick()`
 
-`Tick` 函数中的内容是 __每帧更新__ 的逻辑.
+`Tick` 函数中的内容是 **每帧更新** 的逻辑.
 
 蓝图中, 也有一个 `Event Tick` 节点. 

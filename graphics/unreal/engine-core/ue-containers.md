@@ -50,7 +50,7 @@ using ElementAllocatorType = std::conditional_t<
 
 ## ForAnyElementType
 
-追溯源码, 可看到这是一个__嵌套类__, 定义在 `TSizedHeapAllocator` 类下. (也可以分析出, TArray 中的 AllocatorType 在使用时会被实例化为 Allocator 等分配器类型.) 在末尾可以看见它仅有一个数据成员 `FScriptContainerElement* Data`.
+追溯源码, 可看到这是一个**嵌套类**, 定义在 `TSizedHeapAllocator` 类下. (也可以分析出, TArray 中的 AllocatorType 在使用时会被实例化为 Allocator 等分配器类型.) 在末尾可以看见它仅有一个数据成员 `FScriptContainerElement* Data`.
 
 - 继续追溯 `FScriptContainerElement`, 可以发现它是一个空结构体. ==后续可以分析为什么需要这样==
 
@@ -76,7 +76,7 @@ using ElementAllocatorType = std::conditional_t<
 >
 > from https://zhuanlan.zhihu.com/p/367807315
 
-TQueue 在 UE 中主要用于 __多线程同步__数据.  一个 TQueue 有不同级别的**并发访问的安全性**. 其功能如注释所言. 
+TQueue 在 UE 中主要用于 **多线程同步**数据.  一个 TQueue 有不同级别的**并发访问的安全性**. 其功能如注释所言. 
 
 安全级别越高的同时, 性能也就相应越差.
 
@@ -136,9 +136,9 @@ private:
 >
 > 64 位机器中, 指针占用 8 B. 若不对齐
 
-> `volatile` 关键字是让编译期__不要生成带优化的汇编代码__. 
+> `volatile` 关键字是让编译期**不要生成带优化的汇编代码**. 
 >
-> 保证每次访问都是从内存读取和写入, 这是为了保证__多线程并发安全__的.
+> 保证每次访问都是从内存读取和写入, 这是为了保证**多线程并发安全**的.
 
 TNode::NextNode 不需要对齐, 因为它唯一的使用点是 TQueue 的 构造时 使用的 `new`, 而这个 `new` 对应 UE 的内存池管理 `FMemory`, 已经自动完成了对齐.
 
@@ -267,7 +267,7 @@ PVOID InterlockedExchangePointer(
 
 使用该函数要求 `Target` 对齐到 16 字节, 否则会导致未定义行为. 这是为什么要判断 `IsAligned(Dest, alignof(void*)) == false` 的原因.
 
-该函数保证**原子性**, 且一个线程调用 InterlockedExchangePtr 时会拦截其他相同的调用. 适用于访问__被多线程 shared 的变量.__ 
+该函数保证**原子性**, 且一个线程调用 InterlockedExchangePtr 时会拦截其他相同的调用. 适用于访问**被多线程 shared 的变量.** 
 
 > **图片待补充**：`image-20260625120907557.png`
 
@@ -283,9 +283,9 @@ PVOID InterlockedExchangePointer(
 
 Spsc 中插入了一个 `FPlatformMisc::MemoryBarrier()`. 前面提到的专栏作者对此的解释限制在了单线程的指令读取顺序上, 有失偏颇.
 
-内存屏障是用于 __在面对 CPU, 编译器优化导致的指令乱序执行的环境下, 保障<u>多线程</u>之间的数据同步__. 
+内存屏障是用于 **在面对 CPU, 编译器优化导致的指令乱序执行的环境下, 保障<u>多线程</u>之间的数据同步**. 
 
-`MemoryBarrier` 之后的`OldHead->NextNode = NewNode;` 是在__公布新节点__. 此时这个节点是对消费者可见的. 内存屏障保证了 : 
+`MemoryBarrier` 之后的`OldHead->NextNode = NewNode;` 是在**公布新节点**. 此时这个节点是对消费者可见的. 内存屏障保证了 : 
 
 - 生产者线程中, 在节点公布给消费者之前, 最开始的 `	TNode* NewNode = new TNode(Item);` 已经将数据准备完毕. (注意在生产者单线程中, `new TNode` 和 `OldHead->NextNode` 的读写是没有数据依赖的, 因为 `new` 先分配内存地址, 再执行构造函数. )
 - 
