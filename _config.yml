@@ -2,4 +2,11 @@ title: Some Technical Notes
 theme: minima
 
 header_pages:
-  - index.md
+  - graphics/index.md
+  - unreal/index.md
+  - cpp/index.md
+  - systems/index.md
+  - algorithms/index.md
+
+titles_from_headings:
+  strip_title: true
