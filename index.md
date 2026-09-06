@@ -1,12 +1,6 @@
 # Mer
 
-专业应用数学 + 计算机；
-
-目前兴趣围绕 Unreal Engine、C++、Vulkan、Graphics Pipeline，游戏引擎，AI + Rendering 。
-
-## Featured Notes
-
-本站整理了一些持续（不定期）更新的技术笔记与学习总结。
+Hi，这里整理了一些不定期更新的技术笔记与学习总结。
 
 - [Graphics](./graphics/)  
   实时渲染、Graphics Pipeline、光照、以及与 GPU 相关内容。
